@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .models import Claim
+from .serializers import ClaimSerializer
 
 
 class Home(APIView):
@@ -9,7 +10,17 @@ class Home(APIView):
         return Response("Bye")
 
 
-class ViewAll(APIView):
+class ViewActive(APIView):
+    serializer_class = ClaimSerializer
+
     def get(self, request):
-        return Response("Yo")
+        serializer = ClaimSerializer(Claim.objects.filter(status="ACTIV").order_by('-last_updated'), many=True)
+        return Response(serializer.data)
     
+class ViewClosed(APIView):
+    serializer_class = ClaimSerializer
+
+    def get(self, request):
+        serializer = ClaimSerializer(Claim.objects.filter(status="CLOSE").order_by('-last_updated'), many=True)
+        print(serializer.data)
+        return Response(serializer.data)

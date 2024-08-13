@@ -1,0 +1,36 @@
+.claims-table {
+    border-collapse: collapse;
+    margin: 5% auto;
+    font-size: 1.2em;
+    min-width: 70%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.claims-table thead tr {
+    background-color: #d71b1d;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.claims-table th {
+    padding: 12px 15px;
+}
+
+.claims-table tbody tr {
+    border-bottom: 1px solid #d1b9b9
+}
+
+.claims-table tbody tr:nth-of-type(even) {
+    background-color: #ece6e6
+}
+
+.claims-table tbody tr:last-of-type {
+    border-bottom: 2px solid #d71b1d
+}
+
+/* need to add logic to give hovered over row new class */
+.claims-table tbody tr.hover {
+    font-weight: bold;
+    color: #451111
+}

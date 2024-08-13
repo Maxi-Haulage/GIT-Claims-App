@@ -1,33 +1,34 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+INCIDENT_TYPES = {
+    "WETDA" : "Wet Damage",
+    "THEFT" : "Theft",
+    "MISSS" : "Missing Stock",
+    "SHORT" : "Short Stock",
+    "UNDEL" : "Undelivered",
+    "MISSP" : "Missing POD",
+    "UNDEL" : "Undelivered",
+    "LATED" : "Late Delivery",
+    "OTHER" : "Other"
+}
+
+DEPOTS = {
+    "CAPEW" : "Cape, Warwick",
+    "WEDGN" : "Wedgenock, Warwick",
+    "HEATH" : "Heathcote, Warwick",
+    "WARRI" : "Warrington",
+    "BELSH" : "Bellshill",
+    "IMMIN" : "Immingham"
+}
+
+STATUSES = {
+    "ACTIV" : "Active",
+    "DORMA" : "Dormant",
+    "CLOSE" : "Closed"
+}
 
 class Claim(models.Model):
-    INCIDENT_TYPES = {
-        "WETDA" : "Wet Damage",
-        "THEFT" : "Theft",
-        "MISSS" : "Missing Stock",
-        "SHORT" : "Short Stock",
-        "UNDEL" : "Undelivered",
-        "MISSP" : "Missing POD",
-        "UNDEL" : "Undelivered",
-        "LATED" : "Late Delivery",
-        "OTHER" : "Other"
-    }
-
-    DEPOTS = {
-        "CAPEW" : "Cape, Warwick",
-        "WEDGN" : "Wedgenock, Warwick",
-        "HEATH" : "Heathcote, Warwick",
-        "WARRI" : "Warrington",
-        "BELSH" : "Bellshill",
-        "IMMIN" : "Immingham"
-    }
-
-    STATUSES = {
-        "ACTIV" : "Active",
-        "DORMA" : "Dormant",
-        "CLOSE" : "Closed"
-    }
-
     # Dates
     incident_date = models.DateField()
     claim_date = models.DateField()
