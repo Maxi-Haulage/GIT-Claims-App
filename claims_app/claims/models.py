@@ -22,9 +22,19 @@ class Claim(models.Model):
         "IMMIN" : "Immingham"
     }
 
+    STATUSES = {
+        "ACTIV" : "Active",
+        "DORMA" : "Dormant",
+        "CLOSE" : "Closed"
+    }
+
     # Dates
     incident_date = models.DateField()
     claim_date = models.DateField()
+
+    # Status
+    last_updated = models.DateField(blank=True)
+    status = models.CharField(choices=STATUSES, max_length=5)
 
     # 
     cost = models.DecimalField(decimal_places=2, max_digits=10, null=True)
