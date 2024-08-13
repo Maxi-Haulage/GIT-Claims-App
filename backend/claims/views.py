@@ -1,12 +1,15 @@
 from django.shortcuts import render, HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-@api_view(['GET'])
-def home(request):
-    return Response("Hello")
 
-@api_view(['GET'])
-def view_claims(request):
+class Home(APIView):
+    def get(self, request):
+        return Response("Bye")
+
+
+class ViewAll(APIView):
+    def get(self, request):
+        return Response("Yo")
     
-    return Response()
