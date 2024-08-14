@@ -1,1 +1,2 @@
-# claims_app
+# Insurance Claims Web Application
+
