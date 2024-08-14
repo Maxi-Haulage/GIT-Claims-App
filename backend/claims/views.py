@@ -17,6 +17,15 @@ class ViewActive(APIView):
         serializer = ClaimSerializer(Claim.objects.filter(status="ACTIV").order_by('-last_updated'), many=True)
         return Response(serializer.data)
     
+
+class ViewDormant(APIView):
+    serializer_class = ClaimSerializer
+
+    def get(self, request):
+        serializer = ClaimSerializer(Claim.objects.filter(status="DORMA").order_by('-last_updated'), many=True)
+        return Response(serializer.data)
+    
+
 class ViewClosed(APIView):
     serializer_class = ClaimSerializer
 
@@ -25,6 +34,7 @@ class ViewClosed(APIView):
         print(serializer.data)
         return Response(serializer.data)
     
+
 class SingleClaim(APIView):
     def get(self, request, reference=None):
         return Response(reference)
