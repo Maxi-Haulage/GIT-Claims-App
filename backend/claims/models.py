@@ -29,6 +29,29 @@ STATUSES = {
 }
 
 class Claim(models.Model):
+    """Class to represent the claim itself.
+    
+    Attributes
+    ----------
+    incident_date
+    claim_date : the date the claim was filed
+    last_updated: the date of the most recent update to the claim
+    status : either active, dormant, or closed
+    cost : the monetary value of the claim
+    weight : the weight of affected product
+    incident_type 
+    company : the company filing the claim
+    secondary : any other companies involved with the claim
+    ajg_ref : reference no. from AJG
+    maxi_ref : reference no. from Maxi
+    company_ref : reference no. from the company filing the claim
+    description
+    driver : the driver involved in the claim
+    location : the location the incident occurred at
+    depot : the depot the delivery was going to/from
+    police_involved : boolean to indicate police involvement 
+    """
+
     # Dates
     incident_date = models.DateField()
     claim_date = models.DateField(blank=True)
@@ -62,6 +85,15 @@ class Claim(models.Model):
     
 
 class Update(models.Model):
+    """Class to represent an update given to a claim.
+     
+    Attributes
+    ----------
+    claim : the corresponding claim object
+    note : the written update
+    date : the date and time the update was uploaded
+    """
+    
     claim = models.ForeignKey(Claim, on_delete=models.CASCADE)
 
     note = models.CharField(max_length=500)
@@ -69,6 +101,17 @@ class Update(models.Model):
     
 
 class Police(models.Model):
+    """A class that contains any information from police involvement with a claim.
+    
+    Attributes
+    ----------
+    claim : the corresponding claim object
+    force : the police force involved in the claim
+    officer : the responding officer/officer in charge of the case
+    reference_no : the police's reference no. for the case
+    note : any further notes on the case or police involvement
+    """
+    
     claim = models.OneToOneField(Claim, on_delete=models.CASCADE)
 
     force = models.CharField(max_length=100)
