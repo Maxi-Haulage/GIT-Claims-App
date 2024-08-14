@@ -1,10 +1,29 @@
-.claims-table {
-    border-collapse: collapse;
+.tables {
+    margin: auto;
+}
+
+.tables h2 {
     margin: 5% auto;
+    /*padding: 5% auto 0 auto;*/
+}
+
+.claims-table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: auto;
     font-size: 1.2em;
-    min-width: 70%;
+    text-align: left;
+    width: 85%;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
+}
+
+.reference {
+    width:min-content;
+}
+
+.desc {
+    width: 15%;
 }
 
 .claims-table thead tr {
@@ -13,8 +32,20 @@
     font-weight: bold;
 }
 
-.claims-table th {
+.claims-table th{
     padding: 12px 15px;
+    white-space: nowrap;
+    /*width: min-content;
+    height:min-content;*/
+} 
+
+.claims-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 12px 15px;
+    width: min-content; 
+    /*
+    height:min-content;*/
 }
 
 .claims-table tbody tr {
@@ -30,7 +61,7 @@
 }
 
 /* need to add logic to give hovered over row new class */
-.claims-table tbody tr.hover {
-    font-weight: bold;
-    color: #451111
+.claims-table tbody tr:hover {
+    cursor: pointer;
+    background-color: #d1b9b9;
 }
