@@ -11,7 +11,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/view-all" element={<ViewAll />} />
-          <Route path="/view/:id" element={<SingleClaim />} />
+          <Route path="/view-claim/:id" element={<SingleClaim />} />
         </Routes>
     </BrowserRouter>
   )

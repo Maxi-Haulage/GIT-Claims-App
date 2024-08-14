@@ -31,10 +31,18 @@ class ViewClosed(APIView):
 
     def get(self, request):
         serializer = ClaimSerializer(Claim.objects.filter(status="CLOSE").order_by('-last_updated'), many=True)
-        print(serializer.data)
         return Response(serializer.data)
     
 
 class SingleClaim(APIView):
+    serializer_class = ClaimSerializer
+
     def get(self, request, reference=None):
-        return Response(reference)
+        try:
+            serializer = ClaimSerializer(Claim.objects.filter(id=int(reference)).order_by('-last_updated'), many=True)
+
+            return Response(serializer.data)
+        
+        except:
+            return Response(data=reference, status=404)
+        

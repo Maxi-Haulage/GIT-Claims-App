@@ -1,5 +1,6 @@
 .tables {
     margin: auto;
+    /*background-color: #e3e3e3;*/
 }
 
 .tables h2 {
@@ -25,6 +26,16 @@
 
 .desc {
     width: 15%;
+}
+
+.links {
+    color: #000000;
+    outline: none;
+    text-decoration: none;
+}
+
+.links:hover tr {
+    background-color: #d1b9b9;
 }
 
 .claims-table thead tr {
@@ -61,8 +72,8 @@
     border-bottom: 2px solid #d71b1d
 }
 
-/* need to add logic to give hovered over row new class */
+/* need to add logic to give hovered over row new class 
 .claims-table tbody tr:hover {
     cursor: pointer;
     background-color: #d1b9b9;
-}
+}*/

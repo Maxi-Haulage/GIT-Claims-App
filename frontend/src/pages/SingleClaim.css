@@ -1,0 +1,17 @@
+.content {
+    font-size: 1.5em;
+    line-height: 1.8em;
+    margin: 1%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.top-left { 
+    width: 50%;
+    float: left;
+}
+
+.top-right {
+    margin-left: 50%;
+    text-align: right;
+}

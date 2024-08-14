@@ -4,10 +4,12 @@ import './ViewAll.css';
 
 export default function ViewAll() {
     const [active, setActive] = useState([]);
+    const [dormant, setDormant] = useState([])
     const [closed, setClosed] = useState([]);
+    
 
-    const stats = {"Active": active, "Closed": closed};
-    const indivLink = '/view/'
+    const stats = {"Active": active, "Dormant": dormant, "Closed": closed};
+    const indivLink = '/view-claim/'
 
     useEffect(() => {
         axios.get(`http://localhost:8000/claims/view-active`)
@@ -17,9 +19,15 @@ export default function ViewAll() {
         .catch(error => {
             console.log(error);
         });
-    }, []);
 
-    useEffect(() => {
+        axios.get('http://localhost:8000/claims/view-dormant')
+        .then(response => {            
+            setDormant(response.data);
+        }) 
+        .catch(error => {
+            console.log(error);
+        });
+
         axios.get('http://localhost:8000/claims/view-closed')
         .then(response => {            
             setClosed(response.data);
@@ -27,7 +35,9 @@ export default function ViewAll() {
         .catch(error => {
             console.log(error);
         });
+
     }, []);
+
 
     return (
         <div className='tables'>
@@ -41,9 +51,9 @@ export default function ViewAll() {
                     <tr>
                         <th className='reference'></th>
                         <th>Company</th>
-                        <th>Incident Date</th>
-                        <th>Claim Date</th>
-                        <th>Incident Type</th>
+                        <th>Incident</th>
+                        <th>Claim</th>
+                        <th>Type</th>
                         <th>Cost</th>
                         <th>Weight</th>
                         <th>AJG Ref.</th>
@@ -55,16 +65,16 @@ export default function ViewAll() {
                     <tbody>
                     {stats[stat].map((item) => (
                     <tr key={item.id}>
-                        <td className='reference'><a href={indivLink + item.id}>{item.id}</a></td>
-                        <td>{item.company}</td>
-                        <td>{item.incident_date}</td>
-                        <td>{item.claim_date}</td>
-                        <td>{item.incident_type}</td>
-                        <td>£{item.cost}</td>
-                        <td>{item.weight}</td>
-                        <td>{item.ajg_ref}</td>
-                        <td>{item.last_updated}</td>
-                        <td className='desc'>{item.description}</td>
+                        <td className='reference'><a className="links" href={indivLink + item.id}>{item.id}</a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.company}       </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.incident_date} </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.claim_date}    </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.incident_type} </a></td>
+                        <td><a className="links" href={indivLink + item.id}> £{item.cost}         </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.weight}        </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.ajg_ref}       </a></td>
+                        <td><a className="links" href={indivLink + item.id}> {item.last_updated}  </a></td>
+                        <td className='desc'><a className="links" href={indivLink + item.id}> {item.description}  </a></td>
                     </tr>
                     ))}
                     </tbody>
