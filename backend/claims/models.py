@@ -31,14 +31,14 @@ STATUSES = {
 class Claim(models.Model):
     # Dates
     incident_date = models.DateField()
-    claim_date = models.DateField()
+    claim_date = models.DateField(blank=True)
 
     # Status
     last_updated = models.DateField(blank=True)
     status = models.CharField(choices=STATUSES, max_length=5)
 
     # 
-    cost = models.DecimalField(decimal_places=2, max_digits=10, null=True)
+    cost = models.DecimalField(decimal_places=2, max_digits=10, null=True, blank=True)
     weight = models.FloatField(blank=True, null=True)
     incident_type = models.CharField(choices=INCIDENT_TYPES, max_length=5)
     
@@ -52,7 +52,7 @@ class Claim(models.Model):
     company_ref = models.CharField(max_length=50, blank=True)
     
     
-    description = models.CharField(blank=True, max_length=500)
+    description = models.CharField(max_length=500)
 
     # Extra information
     driver = models.CharField(blank=True, max_length=100)
