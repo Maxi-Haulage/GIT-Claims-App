@@ -7,6 +7,7 @@ export default function ViewAll() {
     const [closed, setClosed] = useState([]);
 
     const stats = {"Active": active, "Closed": closed};
+    const indivLink = '/view/'
 
     useEffect(() => {
         axios.get(`http://localhost:8000/claims/view-active`)
@@ -54,7 +55,7 @@ export default function ViewAll() {
                     <tbody>
                     {stats[stat].map((item) => (
                     <tr key={item.id}>
-                        <td className='reference'>{item.id}</td>
+                        <td className='reference'><a href={indivLink + item.id}>{item.id}</a></td>
                         <td>{item.company}</td>
                         <td>{item.incident_date}</td>
                         <td>{item.claim_date}</td>

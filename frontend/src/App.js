@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './components/Home.js';
-import ViewAll from './components/ViewAll.js';
+import Home from './pages/Home.js';
+import ViewAll from './pages/ViewAll.js';
+import SingleClaim from './pages/SingleClaim.js';
 import './App.css';
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/view-all" element={<ViewAll />} />
+          <Route path="/view/:id" element={<SingleClaim />} />
         </Routes>
     </BrowserRouter>
   )
