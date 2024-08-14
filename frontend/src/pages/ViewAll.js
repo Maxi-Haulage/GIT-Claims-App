@@ -44,8 +44,8 @@ export default function ViewAll() {
                         <th>Incident Date</th>
                         <th>Claim Date</th>
                         <th>Incident Type</th>
-                        <th>Weight</th>
                         <th>Cost</th>
+                        <th>Weight</th>
                         <th>AJG Ref.</th>
                         <th>Last Update</th>
                         <th className='desc'>Description</th>
@@ -60,8 +60,8 @@ export default function ViewAll() {
                         <td>{item.incident_date}</td>
                         <td>{item.claim_date}</td>
                         <td>{item.incident_type}</td>
-                        <td>{item.weight}</td>
                         <td>£{item.cost}</td>
+                        <td>{item.weight}</td>
                         <td>{item.ajg_ref}</td>
                         <td>{item.last_updated}</td>
                         <td className='desc'>{item.description}</td>
