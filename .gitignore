@@ -63,7 +63,7 @@ db.sqlite3-journal
 migrations/
 
 # React stuff
-node-modules/
+node_modules/
 
 # MacOS
 .DS_Store
