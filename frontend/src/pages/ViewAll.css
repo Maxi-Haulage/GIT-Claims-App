@@ -28,10 +28,6 @@
     width: 15%;
 }
 
-.links:hover tr {
-    background-color: #d1b9b9;
-}
-
 .claims-table thead tr {
     background-color: #d71b1d;
     color: #ffffff;
@@ -55,6 +51,7 @@
 }
 
 .claims-table tbody tr {
+    background-color: white;
     border-bottom: 1px solid #d1b9b9
 }
 
