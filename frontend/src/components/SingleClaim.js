@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import blankCheck from '../Utils';
 import './SingleClaim.css';
-
-function blankCheck(attr) {
-    if (attr == null || attr == "") {
-        return "-";
-    }
-    return attr;
-}
 
 export default function SingleClaim() {
     const [claim, setClaim] = useState([]);
     let { id } = useParams();  
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/view-claim/${id}`)
+        axios.get(`http://localhost:8000/claims/claim-data/${id}`)
         .then(response => {
             setClaim(response.data[0]);
         }) 
@@ -50,9 +44,10 @@ export default function SingleClaim() {
             </div>
 
             <div>
+                <br />
                 <p>{claim.description}</p>
             </div>
-
+        
         </div>
     )
 }
