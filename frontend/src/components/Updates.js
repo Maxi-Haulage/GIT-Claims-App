@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './SingleClaim.css';
+import './Updates.css';
 
 
 export default function Updates() {
@@ -21,10 +21,17 @@ export default function Updates() {
     
     return (
         <div>
+            <h2>Updates</h2>
             {updates.map((update) => (
-                <div>
-                <p>{update.note}</p>
-                <p>{update.date}</p>
+                <div className='updates'>
+                    <div className='note'>
+                        <span>{update.note}  </span>
+                    </div>
+                    
+                    <div className='time'>
+                        {update.time} {update.date}
+                    </div>
+                    
                 </div>
             ))}
         </div>

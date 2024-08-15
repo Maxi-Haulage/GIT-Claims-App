@@ -1,0 +1,21 @@
+.updates {
+    display: flex;
+    font-size: 1.3em;
+    line-height: 1.8em;
+    padding: 2%;
+    background-color: #d1b9b9;
+    border-top: solid 0.2rem white;
+    border-bottom: solid 0.2rem white;
+    border-radius: 10px 10px 10px 10px;
+}   
+
+.note {
+    width: 80%;
+    padding-right: 1%;
+}
+
+.time {
+    width: 20%;
+    text-align: right;
+}
+
