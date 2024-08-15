@@ -6,5 +6,6 @@ urlpatterns = [
     path("view-active/", views.ViewActive.as_view(), name="view_active"),
     path("view-dormant/", views.ViewDormant.as_view(), name="view_dormant"),
     path("view-closed/", views.ViewClosed.as_view(), name="view_closed"),
-    path("view-claim/<str:reference>/", views.SingleClaim.as_view(), name="single_claim"),
+    path("claim-data/<str:reference>/", views.ClaimData.as_view(), name="claim_data"),
+    path("claim-updates/<str:reference>/", views.ClaimUpdates.as_view(), name="claim_updates"),
 ]

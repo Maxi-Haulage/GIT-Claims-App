@@ -18,3 +18,9 @@ class ClaimSerializer(serializers.ModelSerializer):
         ret['status'] = "".join([STATUSES[key] for key in STATUSES if key == ret['status']])
     
         return ret
+    
+
+class UpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Update
+        fields = ["note", "date"]
