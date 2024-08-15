@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ViewAll.css';
 
@@ -9,7 +10,11 @@ export default function ViewAll() {
     
 
     const stats = {"Active": active, "Dormant": dormant, "Closed": closed};
-    const indivLink = '/view-claim/'
+
+    const navigate = useNavigate();
+    const openClaim = (id) => {
+        navigate(`/view-claim/${id}`);
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8000/claims/view-active`)
@@ -64,17 +69,17 @@ export default function ViewAll() {
                     
                     <tbody>
                     {stats[stat].map((item) => (
-                    <tr key={item.id}>
-                        <td className='reference'><a className="links" href={indivLink + item.id}>{item.id}</a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.company}       </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.incident_date} </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.claim_date}    </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.incident_type} </a></td>
-                        <td><a className="links" href={indivLink + item.id}> £{item.cost}         </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.weight}        </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.ajg_ref}       </a></td>
-                        <td><a className="links" href={indivLink + item.id}> {item.last_updated}  </a></td>
-                        <td className='desc'><a className="links" href={indivLink + item.id}> {item.description}  </a></td>
+                    <tr key={item.id} onClick={() => openClaim(item.id)}>
+                        <td className='reference'>{item.id}</td>
+                        <td>{item.company}      </td>
+                        <td>{item.incident_date}</td>
+                        <td>{item.claim_date}   </td>
+                        <td>{item.incident_type}</td>
+                        <td>£{item.cost}        </td>
+                        <td>{item.weight}       </td>
+                        <td>{item.ajg_ref}      </td>
+                        <td>{item.last_updated} </td>
+                        <td className='desc'>{item.description} </td>
                     </tr>
                     ))}
                     </tbody>
