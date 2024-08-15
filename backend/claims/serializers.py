@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import *
+from .models import Claim, Update
+from .models import INCIDENT_TYPES, DEPOTS, STATUSES
+from datetime import datetime, date
 
 class ClaimSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,7 +25,7 @@ class ClaimSerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
-        fields = ["note", "date", "time"]
+        fields = ["note", "date", "time", "id"]
 
     def to_representation(self, instance):
         """Remove extra digits from the time."""
@@ -33,3 +35,16 @@ class UpdateSerializer(serializers.ModelSerializer):
         ret['time'] = ret['time'][:5]
 
         return ret
+
+class SubmitUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Update
+        fields = ["note", "claim"]
+
+    def create(self):
+        today = date.today()
+        time = datetime.now().time()
+        self.validated_data["date"] = today
+        self.validated_data["time"] = time
+
+        super().create(self.validated_data)
