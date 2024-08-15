@@ -23,7 +23,7 @@ export default function Updates() {
         <div>
             <h2>Updates</h2>
             {updates.map((update) => (
-                <div className='updates'>
+                <div key={update.id} className='updates'>
                     <div className='note'>
                         <span>{update.note}  </span>
                     </div>
@@ -31,7 +31,6 @@ export default function Updates() {
                     <div className='time'>
                         {update.time} {update.date}
                     </div>
-                    
                 </div>
             ))}
         </div>

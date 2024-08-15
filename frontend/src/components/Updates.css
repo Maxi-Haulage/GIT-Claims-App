@@ -4,8 +4,9 @@
     line-height: 1.8em;
     padding: 2%;
     background-color: #d1b9b9;
-    border-top: solid 0.2rem white;
-    border-bottom: solid 0.2rem white;
+    margin-bottom: 1%;
+    /*border-top: solid 0.2rem rgb(255, 255, 255, );
+    border-bottom: solid 0.2rem white;*/
     border-radius: 10px 10px 10px 10px;
 }   
 
