@@ -97,7 +97,8 @@ class Update(models.Model):
     claim = models.ForeignKey(Claim, on_delete=models.CASCADE)
 
     note = models.CharField(max_length=500)
-    date = models.DateTimeField()
+    date = models.DateField()
+    time = models.TimeField()
     
 
 class Police(models.Model):

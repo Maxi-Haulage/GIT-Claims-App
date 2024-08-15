@@ -23,4 +23,13 @@ class ClaimSerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
-        fields = ["note", "date"]
+        fields = ["note", "date", "time"]
+
+    def to_representation(self, instance):
+        """Remove extra digits from the time."""
+        
+        ret = super().to_representation(instance)
+        
+        ret['time'] = ret['time'][:5]
+
+        return ret
