@@ -73,11 +73,20 @@ class SubmitUpdate(APIView):
         serializer = SubmitUpdateSerializer(data=request.data)
 
         if serializer.is_valid():
-            print(serializer.validated_data)
-            serializer.create()
+            serializer.save()
             return Response("yay", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
-    
+class AddClaim(APIView):
+    serializer_class = ClaimSerializer
+
+    def post(self, request):
+        serializer = ClaimSerializer(data=request.data)
+
+        if serializer.is_valid():
+            print(serializer.validated_data)
+            return Response("yay")
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

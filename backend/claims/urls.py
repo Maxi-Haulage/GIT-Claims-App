@@ -9,4 +9,5 @@ urlpatterns = [
     path("claim-data/<str:reference>/", views.ClaimData.as_view(), name="claim_data"),
     path("claim-updates/<str:reference>/", views.ClaimUpdates.as_view(), name="claim_updates"),
     path("submit-update/", views.SubmitUpdate.as_view(), name="submit_update"),
+    path("add-claim/", views.AddClaim.as_view(), name="add_claim"),
 ]

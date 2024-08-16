@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from datetime import date, datetime
+from dateutil.relativedelta import relativedelta
 
 INCIDENT_TYPES = {
     "WETDA" : "Wet Damage",
@@ -54,7 +56,7 @@ class Claim(models.Model):
 
     # Dates
     incident_date = models.DateField()
-    claim_date = models.DateField(blank=True)
+    claim_date = models.DateField(blank=True, null=True)
 
     # Status
     last_updated = models.DateField(blank=True)
@@ -82,6 +84,19 @@ class Claim(models.Model):
     location = models.CharField(blank=True, max_length=100)
     depot = models.CharField(blank=True, choices=DEPOTS, max_length=5)
     police_involved = models.BooleanField(default=False)
+
+    def save(self, **kwargs):
+        if self.last_updated == None:
+            if self.claim_date != None:
+                self.last_updated = self.claim_date
+            else:
+                self.last_updated = self.incident_date
+
+        if self.status == "DORMA":
+            if self.last_updated > (date.today() - relativedelta(years=1)):
+                self.status = "ACTIV"
+
+        super().save(**kwargs)
     
 
 class Update(models.Model):
@@ -99,6 +114,21 @@ class Update(models.Model):
     note = models.CharField(max_length=500)
     date = models.DateField()
     time = models.TimeField()
+
+    def save(self, **kwargs):
+
+        print("this runs")
+        today = date.today()
+        time = datetime.now().time()
+        self.date = today
+        self.time = time
+
+        print(self.claim, self.claim.last_updated)
+        claim = self.claim
+        claim.last_updated = today
+        claim.save()
+
+        super().save(**kwargs)
     
 
 class Police(models.Model):

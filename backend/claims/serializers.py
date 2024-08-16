@@ -21,6 +21,12 @@ class ClaimSerializer(serializers.ModelSerializer):
     
         return ret
     
+class AddClaimSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Claim
+        #fields = ["incident_date", "claim_date", "status", "cost", "weight", "incident_type", "company", "secondary", "ajg_ref", "maxi_ref", "company_ref", "description", "driver", "location", "depot", "police_involved"]
+        exclude = ["id", "last_updated"]
+
 
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,11 +46,3 @@ class SubmitUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
         fields = ["note", "claim"]
-
-    def create(self):
-        today = date.today()
-        time = datetime.now().time()
-        self.validated_data["date"] = today
-        self.validated_data["time"] = time
-
-        super().create(self.validated_data)
