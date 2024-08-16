@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
 import ClaimData from '../components/ClaimData';
 import Updates from '../components/Updates';
-import './ClaimPage.css';
 import SubmitUpdate from '../components/SubmitUpdate';
-
-
+import './ClaimPage.css';
 
 export default function ClaimPage() {
     const [newPost, setNewPost] = useState(Math.random());
@@ -20,16 +17,11 @@ export default function ClaimPage() {
         {note: e.target[0].value,
         claim: id})
         .then(response => {
-            // MAKE IT SO BOX CLEARS
-            //e.target[0].value = "";
-            //setNote("");
-            //window.location.reload();
             setNewPost(Math.random());
         })
         .catch(error => {
             console.log(error);
         });
-
     }
 
     return (

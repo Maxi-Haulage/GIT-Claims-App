@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import './SubmitUpdate.css';
-import Updates from './Updates';
 
+/** 
+ * Input box and connected form for new updates on a claim. 
+ * 
+ * @param {function} onSubmit - Submit handler that allows newPost to be updated in parent component.
+ */
 export default function SubmitUpdate({ onSubmit }) {
     const [note, setNote] = useState([]);
     let { id } = useParams();  
 
-    /*function handleSubmit(e) {
-        e.preventDefault();
-        axios.post(`http://localhost:8000/claims/submit-update/`, 
-        {note: note,
-        claim: id})
-        .then(response => {
-            setNote("");
-            window.location.reload();
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-    }*/
-
     function localHandler(e) {
         onSubmit(e);
         setNote("");
-
     }
     
     return (
-        <div>
-            <form onSubmit={e => localHandler(e)}>
+        <div className='submitUpdate'>
+            <form onSubmit={e => localHandler(e)} className='form'>
                 <input
                 type='text'
                 name='note'
@@ -40,10 +27,8 @@ export default function SubmitUpdate({ onSubmit }) {
                 onChange={(e) => setNote(e.target.value)}
                 />
 
-                <button type="submit" className='submitButton'></button>
+                <button type="submit" className='submitButton'>Submit</button>
             </form>
-            
-            
         </div>
     )
 }

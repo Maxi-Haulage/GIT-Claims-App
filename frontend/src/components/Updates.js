@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Updates.css';
 
-
+/** 
+ * Component that displays all updates for a specific claim in order with most recent at the top. 
+ * 
+ * @param {number} newPost - Prop that forces rerender when the current user makes a new post.
+ */
 export default function Updates({ newPost }) {
     const [updates, setUpdates] = useState([]);
     let { id } = useParams();  
@@ -19,10 +23,8 @@ export default function Updates({ newPost }) {
         });
     }, [id, newPost]);
 
-
     return (
         <div>
-
             {updates.map((update) => (
                 <div key={update.id} className='updates'>
                     <div className='note'>

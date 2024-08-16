@@ -37,8 +37,6 @@
 .claims-table th{
     padding: 12px 15px;
     white-space: nowrap;
-    /*width: min-content;
-    height:min-content;*/
 } 
 
 .claims-table td {
@@ -46,8 +44,6 @@
     overflow: hidden;
     padding: 12px 15px;
     width: min-content; 
-    /*
-    height:min-content;*/
 }
 
 .claims-table tbody tr {

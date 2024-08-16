@@ -7,7 +7,6 @@ export default function ViewAll() {
     const [active, setActive] = useState([]);
     const [dormant, setDormant] = useState([])
     const [closed, setClosed] = useState([]);
-    
 
     const stats = {"Active": active, "Dormant": dormant, "Closed": closed};
 
