@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import './SubmitUpdate.css';
 
 /** 
@@ -9,7 +8,6 @@ import './SubmitUpdate.css';
  */
 export default function SubmitUpdate({ onSubmit }) {
     const [note, setNote] = useState([]);
-    let { id } = useParams();  
 
     function localHandler(e) {
         onSubmit(e);
@@ -27,7 +25,7 @@ export default function SubmitUpdate({ onSubmit }) {
                 onChange={(e) => setNote(e.target.value)}
                 />
 
-                <button type="submit" className='submitButton'>Submit</button>
+                <button type="submit" className='submitButton'><strong>Submit</strong></button>
             </form>
         </div>
     )

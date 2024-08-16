@@ -87,6 +87,7 @@ class AddClaim(APIView):
 
         if serializer.is_valid():
             print(serializer.validated_data)
-            return Response("yay")
+            claim = serializer.save()
+            return Response(claim.id, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
