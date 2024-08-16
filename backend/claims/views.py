@@ -84,7 +84,7 @@ class AddClaim(APIView):
 
     def post(self, request):
         serializer = ClaimSerializer(data=request.data)
-
+        
         if serializer.is_valid():
             print(serializer.validated_data)
             claim = serializer.save()
