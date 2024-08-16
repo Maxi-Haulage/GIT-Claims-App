@@ -6,9 +6,11 @@ from .models import Claim, Update
 from .serializers import ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
 from datetime import datetime, date
 
+
+# Possibly delete?
 class Home(APIView):
     def get(self, request):
-        return Response("Bye")
+        return Response("")
 
 
 class ViewActive(APIView):
@@ -54,11 +56,13 @@ class ClaimUpdates(APIView):
     def get(self, request, reference=None):
         try:
             target_claim = Claim.objects.filter(id=int(reference))[0]
-            serializer = UpdateSerializer(Update.objects.filter(claim=target_claim).order_by('-date').order_by('-time'), many=True)
+            updates = Update.objects.filter(claim=target_claim).order_by('-id')
+            serializer = UpdateSerializer(updates, many=True)
 
             return Response(serializer.data)
         
         except:
+            # Return something more useful?
             return Response(data=reference, status=status.HTTP_404_NOT_FOUND)
         
 

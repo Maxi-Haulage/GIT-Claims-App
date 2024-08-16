@@ -17,7 +17,7 @@ export default function Updates({ newPost }) {
         .catch(error => {
             console.log(error);
         });
-    }, [id]);
+    }, [id, newPost]);
 
 
     return (

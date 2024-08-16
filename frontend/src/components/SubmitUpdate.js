@@ -4,21 +4,11 @@ import axios from 'axios';
 import './SubmitUpdate.css';
 import Updates from './Updates';
 
-export default function SubmitUpdate() {
+export default function SubmitUpdate({ onSubmit }) {
     const [note, setNote] = useState([]);
     let { id } = useParams();  
 
-    /*useEffect(() => {
-        axios.post(`http://localhost:8000/claims/submit-update`)
-        .then(response => {
-            setUpdate(response.data);
-        }) 
-        .catch(error => {
-            console.log(error);
-        });
-    }, [id]);*/
-
-    function handleSubmit(e) {
+    /*function handleSubmit(e) {
         e.preventDefault();
         axios.post(`http://localhost:8000/claims/submit-update/`, 
         {note: note,
@@ -31,14 +21,20 @@ export default function SubmitUpdate() {
             console.log(error);
         });
 
-    }
+    }*/
 
+    function localHandler(e) {
+        onSubmit(e);
+        setNote("");
+
+    }
     
     return (
         <div>
-            <form onSubmit={e => handleSubmit(e)}>
+            <form onSubmit={e => localHandler(e)}>
                 <input
                 type='text'
+                name='note'
                 value={note}
                 placeholder='Enter new update...'
                 onChange={(e) => setNote(e.target.value)}
