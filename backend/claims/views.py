@@ -3,9 +3,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Claim, Update
+from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from .serializers import ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
-from datetime import datetime, date
-
 
 # Possibly delete?
 class Home(APIView):
@@ -81,6 +80,10 @@ class SubmitUpdate(APIView):
 
 class AddClaim(APIView):
     serializer_class = ClaimSerializer
+
+    def get(self, request):
+        context={"incident_type": INCIDENT_TYPES, "depot": DEPOTS, "status": STATUSES}
+        return Response(context)
 
     def post(self, request):
         serializer = ClaimSerializer(data=request.data)
