@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Claim, Update
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
-from .serializers import ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
+from .serializers import AddClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
 
 # Possibly delete?
 class Home(APIView):
@@ -86,11 +86,13 @@ class AddClaim(APIView):
         return Response(context)
 
     def post(self, request):
-        serializer = ClaimSerializer(data=request.data)
+        print(request.data)
+        serializer = AddClaimSerializer(data=request.data)
         
         if serializer.is_valid():
             print(serializer.validated_data)
             claim = serializer.save()
             return Response(claim.id, status=status.HTTP_201_CREATED)
         else:
+            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

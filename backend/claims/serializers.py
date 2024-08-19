@@ -24,9 +24,20 @@ class ClaimSerializer(serializers.ModelSerializer):
 class AddClaimSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Claim
-        #fields = ["incident_date", "claim_date", "status", "cost", "weight", "incident_type", "company", "secondary", "ajg_ref", "maxi_ref", "company_ref", "description", "driver", "location", "depot", "police_involved"]
-        exclude = ["id", "last_updated"]
+        fields = ["incident_date", "claim_date", "status", "cost", 
+                  "weight", "incident_type", "company", "secondary", 
+                  "ajg_ref", "maxi_ref", "company_ref", "description", 
+                  "driver", "location", "depot", "police_involved"]
 
+    def to_internal_value(self, data):
+        validated_data = super().to_internal_value(data)
+
+        if validated_data['claim_date'] == date(1800,1,1): validated_data['claim_date'] = None
+        
+        if validated_data['weight'] == 0: validated_data['weight'] = None
+        if validated_data['cost'] == 0: validated_data['cost'] = None
+
+        return validated_data
 
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:

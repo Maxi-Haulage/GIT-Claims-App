@@ -4,7 +4,8 @@ from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 
 INCIDENT_TYPES = {
-    "WETDA" : "Wet Damage",
+    "WETDA" : "Wet",
+    "DAMAG" : "Damaged",
     "THEFT" : "Theft",
     "MISSS" : "Missing Stock",
     "SHORT" : "Short Stock",

@@ -10,22 +10,35 @@ export default function AddClaimPage() {
     const [depots, setDepots] = useState({});
     const [statuses, setStatuses] = useState({});
 
-    const [formFields, setFormFields] = useState({"Maxi Reference": "",
-                                                "Company": "",
-                                                "Company Reference": "",
-                                                "AJG Reference": "",
-                                                "Incident Date": new Date(0),
-                                                "Claim Date": new Date(0),
-                                                "Incident Type": "",
-                                                "Depot": "",
-                                                "Status": "",
-                                                "Weight": 0,
-                                                "Cost": 0,
-                                                "Description": "",
-                                                "Location": "",
-                                                "Driver": "",
-                                                "Police": false
-                                                });
+    const aliases = {"maxi_ref": "Maxi Reference",
+                    "company": "Company",
+                    "company_ref": "Company Reference",
+                    "ajg_ref": "AJG Reference",
+                    "incident_date": "Incident Date",
+                    "depot": "Depot",
+                    "status": "Status",
+                    "weight": "Weight",
+                    "cost": "Cost",
+                    "description": "Description",
+                    "location": "Location",
+                    "driver": "Driver",
+                    "police": "Police"};
+
+    const [formFields, setFormFields] = useState({"maxi_ref": "",
+                                                "company": "",
+                                                "company_ref": "",
+                                                "ajg_ref": "",
+                                                "incident_date": "",
+                                                "claim_date": "",
+                                                "incident_type": "",
+                                                "depot": "",
+                                                "status": "ACTIV",
+                                                "weight": 0,
+                                                "cost": 0,
+                                                "description": "",
+                                                "location": "",
+                                                "driver": "",
+                                                "police": false});
 
     const references = Object.keys(formFields).slice(0, 4);
     const dates = Object.keys(formFields).slice(4, 6);
@@ -50,18 +63,19 @@ export default function AddClaimPage() {
         //console.log(formFields["Incident Date"].toString());
 
         // possibly unnecessary if validation is occuring on backend
-        /*if (+formFields["Incident Date"] == +(new Date(0))) {
-            setFormFields({...formFields, ["Incident Date"]: null});
-        }
-        if (+formFields["Claim Date"].toString() == +(new Date(0))) {
-            setFormFields({...formFields, ["Claim Date"]: null});
+        /*if (+formFields["incident_type"] === +(new Date(0))) {
+            setFormFields({...formFields, ["incident_date"]: null});
         }*/
+        if (formFields["claim_date"] == "") {
+            console.log(formFields["claim_date"].toString());
+            setFormFields({...formFields, ["claim_date"]: "1800-01-01"});
+        }
 
         axios.post(`http://localhost:8000/claims/add-claim/`, 
-        {})
+        formFields)
         .then(response => {
-            
-            navigate.push(`/view-claim/${response}`)
+            console.log(response.data);
+            navigate(`/view-claim/${response.data}`)
         })
         .catch(error => {
             console.log(error);
@@ -74,7 +88,7 @@ export default function AddClaimPage() {
             <form onSubmit={e => handleSubmit(e)} className='form'>
                 {references.map((field) =>
                     <div key={field}>
-                        <h3>{field}</h3>
+                        <h3>{aliases[field]}</h3>
                         <input
                         type='text'
                         name={field}
@@ -85,7 +99,7 @@ export default function AddClaimPage() {
 
                 {dates.map((field) =>
                     <div key={field}>
-                        <h3>{field}</h3>
+                        <h3>{aliases[field]}</h3>
                         <input
                         type='date'
                         name={field}
@@ -95,7 +109,7 @@ export default function AddClaimPage() {
                 )}
 
                 <h3>Incident Type</h3>
-                <select name='incidentType' onChange={(e) => setFormFields({...formFields, ["Incident Type"]: e.target.value})}>
+                <select name='incidentType' onChange={(e) => setFormFields({...formFields, ["incident_type"]: e.target.value})}>
                     <option hidden>Select one...</option>
                     {Object.keys(incidentTypes).map((opt) =>
                         <option value={opt} key={opt}>{incidentTypes[opt]}</option>
@@ -104,7 +118,7 @@ export default function AddClaimPage() {
 
                 {figures.map((field) =>
                     <div key={field}>
-                        <h3>{field} 
+                        <h3>{aliases[field]} 
                         {field==="Weight"
                         ? " (kg)"
                         : " (£)"
@@ -120,12 +134,12 @@ export default function AddClaimPage() {
                 <h3>Description</h3>
                 <input
                 type='text'
-                name="Description"
-                value={formFields["Description"]}
-                onChange={(e) => setFormFields({...formFields, ["Description"]: e.target.value})}/>
+                name="description"
+                value={formFields["description"]}
+                onChange={(e) => setFormFields({...formFields, ["description"]: e.target.value})}/>
 
                 <h3>Depot</h3>
-                <select name='depot' onChange={(e) => setFormFields({...formFields, ["Depot"]: e.target.value})}>
+                <select name='depot' onChange={(e) => setFormFields({...formFields, ["depot"]: e.target.value})}>
                 <option hidden>Select one...</option>
                     {Object.keys(depots).map((opt) =>
                         <option value={opt} key={opt}>{depots[opt]}</option>
@@ -133,7 +147,7 @@ export default function AddClaimPage() {
                 </select>
 
                 <h3>Status</h3>
-                <select name='status' onChange={(e) => setFormFields({...formFields, ["Status"]: e.target.value})}>
+                <select name='status' onChange={(e) => setFormFields({...formFields, ["status"]: e.target.value})}>
                     <option hidden>Select one...</option>
                     {Object.keys(statuses).map((opt) =>
                         <option value={opt} key={opt}>{statuses[opt]}</option>
@@ -142,7 +156,7 @@ export default function AddClaimPage() {
                 
                 {extras.map((field) =>
                     <div key={field}>
-                        <h3>{field}</h3>
+                        <h3>{aliases[field]}</h3>
                         <input
                         type='text'
                         name={field}
@@ -154,9 +168,9 @@ export default function AddClaimPage() {
                 <h3>Police</h3>
                 <input
                 type='checkbox'
-                name='Police'
-                value={formFields["Police"]}
-                onChange={(e) => setFormFields({...formFields, ["Police"]: !formFields["Police"]})}/>             
+                name='police'
+                value={formFields["police"]}
+                onChange={(e) => setFormFields({...formFields, ["police"]: !formFields["police"]})}/>             
 
                 <button type="submit" className='submitButton'><strong>Submit</strong></button>
             </form>
