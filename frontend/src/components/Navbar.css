@@ -1,9 +1,14 @@
-nav {
-    margin: auto;
-    padding: 0.5% 10% 0 10%;
+header {
     background-color: white;
+    padding: 0.5% 10% 0 10%;
+    display: flex;
 }
 
 img {
     height: 100px;
+}
+
+nav {
+    margin: auto;  
+    margin-left: 3%;
 }

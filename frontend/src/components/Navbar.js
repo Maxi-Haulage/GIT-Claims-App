@@ -4,11 +4,11 @@ import './Navbar.css';
 export default function Navbar() {
 
     return (
-        <nav>
-            <div>
-                <a href='/'><img src='/logo.png' alt="Logo"></img></a>
-            </div>
-            
-        </nav>
+        <header>
+            <a href='/'><img src='/logo.png' alt="Logo"></img></a>
+            <nav>
+                <a href='/add-claim'>Add Claim</a>
+            </nav>
+        </header>
     )
 }
