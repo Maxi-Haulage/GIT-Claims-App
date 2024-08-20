@@ -9,9 +9,9 @@ import './App.css';
 export default function App() {
   return (
     <div className='App'>
-    <Navbar />
-
+    
     <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route exact path="/" element={<ViewAll />} />
           <Route path="/view-claim/:id" element={<ClaimPage />} />

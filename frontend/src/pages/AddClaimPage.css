@@ -4,13 +4,21 @@
     margin: auto;
 }
 
-.addClaim input[type="text"] {
+.addClaim input[type=text] {
     width:100%;
+}
+
+.addClaim input[type=number] {
+    text-align: right;
 }
 
 .addClaim textarea {
     width: 100%;
     resize: vertical;
+}
+
+.top {
+    overflow: auto;
 }
 
 .topLeft {
@@ -21,6 +29,14 @@
 .topRight {
     margin-left: 40%;
     text-align: right;
+}
+
+.middle {
+    display: block;
+}
+
+.bottom {
+    overflow: auto;
 }
 
 .bottomLeft {
@@ -42,4 +58,14 @@
 
 .addClaim .submitButton {
     float: right;
+    padding: 0.4em;
 }
+
+.addClaim label {
+    margin: auto;
+    color: #b4191b;
+    font-size: large;
+}
+
+
+

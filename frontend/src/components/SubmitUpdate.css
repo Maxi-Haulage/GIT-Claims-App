@@ -2,11 +2,6 @@
     display: flex;
 }
 
-.form {
-    width: 100%;
-    margin-bottom: 2%;
-}
-
 .submitUpdate textarea {
     width: 80%;
     resize: vertical;

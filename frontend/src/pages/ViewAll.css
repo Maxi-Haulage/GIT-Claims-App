@@ -22,7 +22,7 @@
 }
 
 .reference {
-    width:min-content;
+    width:2%;
 }
 
 .desc {
@@ -36,14 +36,14 @@
 }
 
 .claims-table th{
-    padding: 12px 15px;
+    padding: 10px 12px;
     white-space: nowrap;
 } 
 
 .claims-table td {
     white-space: nowrap;
     overflow: hidden;
-    padding: 12px 15px;
+    padding: 10px 12px;
     width: min-content; 
 }
 

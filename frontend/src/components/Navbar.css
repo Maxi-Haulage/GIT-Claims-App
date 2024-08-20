@@ -26,3 +26,7 @@ nav a:hover {
     background-color: #d1b9b9;
     border-radius: 30px;
 }
+
+nav .edit >[href="/view-claim"] {
+    display: block;
+}

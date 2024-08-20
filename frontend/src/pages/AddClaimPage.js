@@ -34,8 +34,8 @@ export default function AddClaimPage() {
                                                 "incident_type": "",
                                                 "depot": "",
                                                 "status": "ACTIV",
-                                                "weight": 0,
-                                                "cost": 0,
+                                                "weight": "",
+                                                "cost": "",
                                                 "description": "",
                                                 "location": "",
                                                 "driver": "",
@@ -81,10 +81,11 @@ export default function AddClaimPage() {
         <div className='addClaim'>
             <form onSubmit={e => handleSubmit(e)} className='form'>
                 
+                <div className='top'>
                 <div className='topLeft'>
                     {references.map((field) =>
                         <div key={field}>
-                            <span><strong>{aliases[field]}</strong>{errors[field]}</span>
+                            <strong>{aliases[field]}</strong><label> {errors[field]}</label>
                             <input
                             type='text'
                             name={field}
@@ -93,8 +94,8 @@ export default function AddClaimPage() {
                         </div>
                     )}
 
-                <h3>Status</h3>
-                    <select name='status' onChange={(e) => setFormFields({...formFields, ["status"]: e.target.value})}>
+                    <strong>Status</strong><label> {errors["status"]}</label><br />
+                    <select name='status' onChange={(e) => setFormFields({...formFields, "status": e.target.value})}>
                         <option hidden>Select one...</option>
                         {Object.keys(statuses).map((opt) =>
                             <option value={opt} key={opt}>{statuses[opt]}</option>
@@ -106,7 +107,7 @@ export default function AddClaimPage() {
 
                     {dates.map((field) =>
                         <div key={field}>
-                            <h3>{aliases[field]}</h3>
+                            <label>{errors[field]} </label><strong>{aliases[field]}</strong><br />
                             <input
                             type='date'
                             name={field}
@@ -114,8 +115,9 @@ export default function AddClaimPage() {
                             onChange={(e) => setFormFields({...formFields, [field]: e.target.value})}/>
                         </div>
                     )}
-                    <h3>Incident Type</h3>
-                    <select name='incidentType' onChange={(e) => setFormFields({...formFields, ["incident_type"]: e.target.value})}>
+
+                    <label>{errors["incident_type"]} </label><strong>Incident Type</strong><br />
+                    <select name='incidentType' onChange={(e) => setFormFields({...formFields, "incident_type": e.target.value})}>
                         <option hidden>Select one...</option>
                         {Object.keys(incidentTypes).map((opt) =>
                             <option value={opt} key={opt}>{incidentTypes[opt]}</option>
@@ -123,33 +125,38 @@ export default function AddClaimPage() {
                     </select>
                     
                     {figures.map((field) =>
-                    <div key={field}>
-                        <h3>{aliases[field]} 
-                        {field==="weight"
-                        ? " (kg)"
-                        : " (£)"
-                        }</h3>
-                        <input
-                        type='number'
-                        name={field}
-                        value={formFields[field]}
-                        onChange={(e) => setFormFields({...formFields, [field]: e.target.value})}/>
-                    </div>
+                        <div key={field}>
+                            <label>{errors[field]} </label><strong>{aliases[field]}
+                            {field==="weight"
+                            ? " (kg)"
+                            : " (£)"
+                            }</strong><br />
+                            <input
+                            type='number'
+                            name={field}
+                            value={formFields[field]}
+                            onChange={(e) => setFormFields({...formFields, [field]: e.target.value})}/>
+                        </div>
                     )}
                     
-                    
                 </div>
-                
-                <h3>Description</h3>
+                </div>
+
+
+                <div className='middle'>
+                <strong>Description</strong><label> {errors["description"]}</label>
                 <textarea
                 name="description"
                 value={formFields["description"]}
-                onChange={(e) => setFormFields({...formFields, ["description"]: e.target.value})}/>
-            
+                onChange={(e) => setFormFields({...formFields, "description": e.target.value})}/>
+                </div>
+
+
+                <div className='bottom'>
                 <div className='bottomLeft'>                    
                     {extras.map((field) =>
                         <div key={field}>
-                            <h3>{aliases[field]}</h3>
+                            <strong>{aliases[field]}</strong><label> {errors[field]}</label>
                             <input
                             type='text'
                             name={field}
@@ -160,25 +167,26 @@ export default function AddClaimPage() {
                     </div>
 
                 <div className='bottomRight'>
-                    <h3>Depot</h3>
-                    <select name='depot' onChange={(e) => setFormFields({...formFields, ["depot"]: e.target.value})}>
+                    <label>{errors["depot"]} </label><strong>{aliases["depot"]}</strong><br />
+                    <select name='depot' onChange={(e) => setFormFields({...formFields, "depot": e.target.value})}>
                     <option hidden>Select one...</option>
                         {Object.keys(depots).map((opt) =>
                             <option value={opt} key={opt}>{depots[opt]}</option>
                         )}
                     </select>
+                    <br />
 
-                    <h3>Police</h3>
+                    <label>{errors["police"]} </label><strong>{aliases["police"]}</strong><br />
                     <input
                     type='checkbox'
                     name='police'
                     value={formFields["police"]}
-                    onChange={(e) => setFormFields({...formFields, ["police"]: !formFields["police"]})}/>             
+                    onChange={(e) => setFormFields({...formFields, "police": !formFields["police"]})}/>             
                 
                 </div>
-                
+                </div>
 
-                <button type="submit" className='submitButton'><strong>Submit</strong></button>
+                <button type="submit" className='submitButton'><b>Submit</b></button>
 
                 
             </form>
