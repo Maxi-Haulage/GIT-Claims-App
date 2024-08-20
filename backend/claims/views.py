@@ -95,4 +95,13 @@ class AddClaim(APIView):
             return Response(claim.id, status=status.HTTP_201_CREATED)
         else:
             print(serializer.errors)
+            if "incident_date" in serializer.errors.keys():
+                print("hi")
+                if serializer.errors["incident_date"][0] == "Date has wrong format. Use one of these formats instead: YYYY-MM-DD.":
+                    serializer.errors["incident_date"][0] = "This field may not be blank"
+
+            if "incident_type" in serializer.errors.keys():
+                if serializer.errors["incident_type"][0] == '"" is not a valid choice.':
+                    serializer.errors["incident_type"][0] = "This field may not be blank"
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

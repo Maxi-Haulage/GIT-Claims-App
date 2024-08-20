@@ -30,9 +30,12 @@ class AddClaimSerializer(serializers.ModelSerializer):
                   "driver", "location", "depot", "police_involved"]
 
     def to_internal_value(self, data):
+        if data["incident_date"] == "": data["incident_claim"] = None
+        if data["claim_date"] == "": data["claim_date"] = None
+
         validated_data = super().to_internal_value(data)
 
-        if validated_data['claim_date'] == date(1800,1,1): validated_data['claim_date'] = None
+        #if validated_data['claim_date'] == date(1800,1,1): validated_data['claim_date'] = None
         
         if validated_data['weight'] == 0: validated_data['weight'] = None
         if validated_data['cost'] == 0: validated_data['cost'] = None

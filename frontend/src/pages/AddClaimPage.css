@@ -1,3 +1,45 @@
 .addClaim {
     display: flex;
+    width: 60%;
+    margin: auto;
+}
+
+.addClaim input[type="text"] {
+    width:100%;
+}
+
+.addClaim textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+.topLeft {
+    float: left;
+    width: 60%;
+}
+
+.topRight {
+    margin-left: 40%;
+    text-align: right;
+}
+
+.bottomLeft {
+    float: left;
+    width: 60%;
+}
+
+.bottomRight {
+    margin-left: 40%;
+    text-align: right;
+}
+
+.addClaim strong {
+    margin-top: 1em;
+    margin-bottom: 0.1em;
+    display: inline-block;
+    font-size: larger;
+}
+
+.addClaim .submitButton {
+    float: right;
 }

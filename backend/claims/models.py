@@ -87,15 +87,17 @@ class Claim(models.Model):
     police_involved = models.BooleanField(default=False)
 
     def save(self, **kwargs):
-        if self.last_updated == None:
-            if self.claim_date != None:
-                self.last_updated = self.claim_date
-            else:
-                self.last_updated = self.incident_date
 
-        if self.status == "DORMA":
+        if self.status == "DORMA" and self.last_updated:
             if self.last_updated > (date.today() - relativedelta(years=1)):
                 self.status = "ACTIV"
+
+        if self.last_updated == None:
+            self.last_updated = date.today()
+            """if self.claim_date != None:
+                self.last_updated = self.claim_date
+            else:
+                self.last_updated = self.incident_date"""      
 
         super().save(**kwargs)
     
