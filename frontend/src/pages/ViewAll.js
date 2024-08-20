@@ -56,7 +56,6 @@ export default function ViewAll() {
                         <th className='reference'></th>
                         <th>Company</th>
                         <th>Incident</th>
-                        <th>Claim</th>
                         <th>Type</th>
                         <th>Cost</th>
                         <th>Weight</th>
@@ -72,7 +71,6 @@ export default function ViewAll() {
                         <td className='reference'>{item.id}</td>
                         <td>{item.company}      </td>
                         <td>{item.incident_date}</td>
-                        <td>{item.claim_date}   </td>
                         <td>{item.incident_type}</td>
                         <td>£{item.cost}        </td>
                         <td>{item.weight}       </td>

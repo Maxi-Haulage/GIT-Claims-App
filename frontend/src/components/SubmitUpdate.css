@@ -7,37 +7,17 @@
     margin-bottom: 2%;
 }
 
-input[type=text] {
+.submitUpdate textarea {
     width: 80%;
-    background-color: #ded1d1;
-    padding: 0.5em 0.7em;
-    box-sizing: border-box;
-    outline:none;
-    border: 2px solid #d1b9b9;
-    border-radius: 5px;
-    resize:vertical;
-    font-size: 1.3em;
+    resize: vertical;
 }
 
 input[type=text]:focus {
     border: 3px solid #c49e9e;
 }
 
-.submitButton {
-    width: 19%;
-    height: 2em;
-    text-align: center;
-    font-size: 1.5em;
-    padding: 0.1em;
-    border: none;
-    color: white;
+.submitUpdate .submitButton { 
     float: right;
-    background-color: #d71b1d;
-    border-radius: 10px;
+    width: 19%;
     margin-left: 1%;
-}
-
-.submitButton:hover {
-    cursor: pointer;
-    background-color:#6e0e0f;
 }

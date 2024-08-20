@@ -30,7 +30,7 @@ export default function ClaimData() {
                 <span><strong>Weight:</strong>          {blankCheck(claim.weight)}</span><br />
                 <span><strong>Incident Type:</strong>   {blankCheck(claim.incident_type)}</span><br />
                 <br />
-                <span><strong>Next action:</strong>     </span><br />
+                <span><strong>Status:</strong>          {blankCheck(claim.status)}</span><br />
 
             </div>
         

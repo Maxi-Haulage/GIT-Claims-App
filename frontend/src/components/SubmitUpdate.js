@@ -17,8 +17,7 @@ export default function SubmitUpdate({ onSubmit }) {
     return (
         <div className='submitUpdate'>
             <form onSubmit={e => localHandler(e)} className='form'>
-                <input
-                type='text'
+                <textarea
                 name='note'
                 value={note}
                 placeholder='Enter new update...'

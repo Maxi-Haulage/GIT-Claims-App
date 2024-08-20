@@ -1,14 +1,28 @@
 header {
     background-color: white;
-    padding: 0.5% 10% 0 10%;
+    padding: 0 10% 0 10%;
     display: flex;
 }
 
 img {
-    height: 100px;
+    height: 80px;
+    padding-top: 3%;
 }
 
 nav {
     margin: auto;  
-    margin-left: 3%;
+    margin-left: 5%;
+}
+
+nav a {
+    font-size: 1.3em;
+    text-decoration: none;
+    color: black;
+    padding: 1vb;
+    margin: 1vb
+}
+
+nav a:hover {
+    background-color: #d1b9b9;
+    border-radius: 30px;
 }
