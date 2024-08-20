@@ -4,9 +4,9 @@ import axios from 'axios';
 import ClaimData from '../components/ClaimData';
 import Updates from '../components/Updates';
 import SubmitUpdate from '../components/SubmitUpdate';
-import './ClaimPage.css';
+import './ViewClaimPage.css';
 
-export default function ClaimPage() {
+export default function ViewClaimPage() {
     const [newPost, setNewPost] = useState(Math.random());
     let { id } = useParams(); 
 
