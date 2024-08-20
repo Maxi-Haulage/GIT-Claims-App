@@ -33,12 +33,10 @@ class AddClaimSerializer(serializers.ModelSerializer):
         if data["incident_date"] == "": data["incident_claim"] = None
         if data["claim_date"] == "": data["claim_date"] = None
 
-        validated_data = super().to_internal_value(data)
+        if data['weight'] == "": data['weight'] = None
+        if data['cost'] == "": data['cost'] = None
 
-        #if validated_data['claim_date'] == date(1800,1,1): validated_data['claim_date'] = None
-        
-        if validated_data['weight'] == 0: validated_data['weight'] = None
-        if validated_data['cost'] == 0: validated_data['cost'] = None
+        validated_data = super().to_internal_value(data)
 
         return validated_data
 

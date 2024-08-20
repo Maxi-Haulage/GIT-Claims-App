@@ -86,17 +86,14 @@ class AddClaim(APIView):
         return Response(context)
 
     def post(self, request):
-        print(request.data)
         serializer = AddClaimSerializer(data=request.data)
         
         if serializer.is_valid():
-            print(serializer.validated_data)
             claim = serializer.save()
             return Response(claim.id, status=status.HTTP_201_CREATED)
         else:
             print(serializer.errors)
             if "incident_date" in serializer.errors.keys():
-                print("hi")
                 if serializer.errors["incident_date"][0] == "Date has wrong format. Use one of these formats instead: YYYY-MM-DD.":
                     serializer.errors["incident_date"][0] = "This field may not be blank"
 
