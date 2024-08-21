@@ -94,6 +94,8 @@ class Claim(models.Model):
 
         if self.last_updated == None:
             self.last_updated = date.today()
+        elif self.last_updated < date.today():
+            self.last_updated = date.today()
             """if self.claim_date != None:
                 self.last_updated = self.claim_date
             else:

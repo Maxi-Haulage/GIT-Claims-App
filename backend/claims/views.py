@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Claim, Update
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
-from .serializers import AddClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
+from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
 
 # Possibly delete?
 class Home(APIView):
@@ -41,7 +41,7 @@ class ClaimData(APIView):
 
     def get(self, request, reference=None):
         try:
-            serializer = ClaimSerializer(Claim.objects.filter(id=int(reference)).order_by('-last_updated'), many=True)
+            serializer = ClaimSerializer(Claim.objects.filter(id=int(reference))[0])
 
             return Response(serializer.data)
         
@@ -79,7 +79,7 @@ class SubmitUpdate(APIView):
         
 
 class AddClaim(APIView):
-    serializer_class = ClaimSerializer
+    serializer_class = AddClaimSerializer
 
     def get(self, request):
         context={"incident_type": INCIDENT_TYPES, "depot": DEPOTS, "status": STATUSES}
@@ -102,3 +102,16 @@ class AddClaim(APIView):
                     serializer.errors["incident_type"][0] = "This field may not be blank"
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class EditClaim(APIView):
+    def get(self, request, reference=None):
+        try:
+            serializer = EditClaimSerializer(Claim.objects.filter(id=int(reference))[0])
+            return Response(serializer.data)
+        except:
+            return Response(data=reference, status=404)
+
+    def post(self, request, reference=None):
+        # UPDATE CLAIM WITH NEW DATA
+        return Response()

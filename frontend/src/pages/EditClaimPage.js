@@ -12,9 +12,9 @@ export default function EditClaimPage() {
     const [formFields, setFormFields] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/claim-data/${id}`)
+        axios.get(`http://localhost:8000/claims/edit-claim/${id}/`)
         .then(response => {
-            setFormFields(response.data[0]);
+            setFormFields(response.data);
         }) 
         .catch(error => {
             console.log(error);
@@ -24,14 +24,13 @@ export default function EditClaimPage() {
     function handleSubmit(e, fields) {
         e.preventDefault();
 
-        axios.post(`http://localhost:8000/claims/edit-claim/${id}`, 
+        axios.post(`http://localhost:8000/claims/edit-claim/${id}/`, 
         fields)
         .then(response => {
             navigate(`/view-claim/${id}`)
         })
         .catch(error => {
             setErrors(error.response.data);
-            console.log(errors);
         });
     }
 

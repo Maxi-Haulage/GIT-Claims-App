@@ -11,7 +11,7 @@ export default function ClaimData() {
     useEffect(() => {
         axios.get(`http://localhost:8000/claims/claim-data/${id}`)
         .then(response => {
-            setClaim(response.data[0]);
+            setClaim(response.data);
         }) 
         .catch(error => {
             console.log(error);
