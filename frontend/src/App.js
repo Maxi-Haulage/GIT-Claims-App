@@ -4,6 +4,7 @@ import Layout from './Layout';
 import ViewAll from './pages/ViewAll.js';
 import ViewClaimPage from './pages/ViewClaimPage.js';
 import AddClaimPage from './pages/AddClaimPage.js';
+import EditClaimPage from './pages/EditClaimPage';
 import './App.css';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
             <Route index element={<ViewAll />} />
             <Route path="/view-claim/:id" element={<ViewClaimPage />} />
             <Route path="/add-claim" element={<AddClaimPage />} />
+            <Route path="/edit-claim/:id" element={<EditClaimPage />} />
           </Route>
         </Routes>
     </BrowserRouter>

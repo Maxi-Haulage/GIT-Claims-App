@@ -8,8 +8,21 @@ export default function AddClaimPage() {
     const navigate = useNavigate();
 
     const [errors, setErrors] = useState({});
-
-    
+    const [formFields, setFormFields] = useState({"company": "",
+                                                "company_ref": "",
+                                                "ajg_ref": "",
+                                                "maxi_ref": "",
+                                                "incident_date": "",
+                                                "claim_date": "",
+                                                "incident_type": "",
+                                                "depot": "",
+                                                "status": "ACTIV",
+                                                "weight": "",
+                                                "cost": "",
+                                                "description": "",
+                                                "location": "",
+                                                "driver": "",
+                                                "police": false});
 
     function handleSubmit(e, fields) {
         e.preventDefault();
@@ -17,16 +30,14 @@ export default function AddClaimPage() {
         axios.post(`http://localhost:8000/claims/add-claim/`, 
         fields)
         .then(response => {
-            console.log(response.data);
             navigate(`/view-claim/${response.data}`)
         })
         .catch(error => {
             setErrors(error.response.data);
-            console.log(errors);
         });
     }
 
     return (
-        <ClaimForm onSubmit={handleSubmit} errors={errors}/>
+        <ClaimForm onSubmit={handleSubmit} errors={errors} formFields={formFields} setFormFields={setFormFields}/>
     )
 }

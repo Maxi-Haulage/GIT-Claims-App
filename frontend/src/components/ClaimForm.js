@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ClaimForm.css';
 
-export default function ClaimForm({ errors, onSubmit }) {
+export default function ClaimForm({ errors, onSubmit, formFields, setFormFields }) {
 
     const [incidentTypes, setIncidentTypes] = useState({})
     const [depots, setDepots] = useState({});
@@ -23,26 +23,10 @@ export default function ClaimForm({ errors, onSubmit }) {
                     "driver": "Driver",
                     "police": "Police"};
 
-    const [formFields, setFormFields] = useState({"company": "",
-                    "company_ref": "",
-                    "ajg_ref": "",
-                    "maxi_ref": "",
-                    "incident_date": "",
-                    "claim_date": "",
-                    "incident_type": "",
-                    "depot": "",
-                    "status": "ACTIV",
-                    "weight": "",
-                    "cost": "",
-                    "description": "",
-                    "location": "",
-                    "driver": "",
-                    "police": false});
-
-    const references = Object.keys(formFields).slice(0, 4);
-    const dates = Object.keys(formFields).slice(4, 6);
-    const figures = Object.keys(formFields).slice(9,11);
-    const extras = Object.keys(formFields).slice(12,14)
+    const references = ["company", "company_ref", "ajg_ref", "maxi_ref"];
+    const dates = ["incident_date", "claim_date"];
+    const figures = ["weight", "cost"];
+    const extras = ["location", "driver"];
 
     useEffect(() => {
         axios.get(`http://localhost:8000/claims/add-claim/`)

@@ -9,8 +9,6 @@ export default function Navbar() {
 
     function viewPageCheck() {
         if ((location.pathname).includes("view-claim/")) {
-            console.log(id);
-            console.log(location.pathname);
             return true;
         }
         return false;
