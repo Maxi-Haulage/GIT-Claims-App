@@ -30,6 +30,7 @@ export default function EditClaimPage() {
             navigate(`/view-claim/${id}`)
         })
         .catch(error => {
+            console.log(fields);
             setErrors(error.response.data);
         });
     }

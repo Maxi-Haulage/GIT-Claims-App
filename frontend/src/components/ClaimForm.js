@@ -60,9 +60,9 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
 
                     <strong>Status</strong><label> {errors["status"]}</label><br />
                     <select name='status' onChange={(e) => setFormFields({...formFields, "status": e.target.value})}>
-                        {formFields["status"] === "" ?
-                        <option hidden>Select one...</option> :
-                        <option hidden>{formFields["status"]}</option>}
+                        {formFields["status"] === "ACTIV" ?
+                        <option selected hidden value="ACTIV">Active</option> :
+                        <option selected hidden value={formFields["status"]}>{statuses[formFields["status"]]}</option>}
 
                         {Object.keys(statuses).map((opt) =>
                             <option value={opt} key={opt}>{statuses[opt]}</option>
@@ -87,7 +87,7 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                     <select name='incidentType' onChange={(e) => setFormFields({...formFields, "incident_type": e.target.value})}>
                         {formFields["incident_type"] === "" ?
                         <option hidden>Select one...</option> :
-                        <option hidden>{formFields["incident_type"]}</option>}
+                        <option hidden value={formFields["incident_type"]}>{incidentTypes[formFields["incident_type"]]}</option>}
                         
                         {Object.keys(incidentTypes).map((opt) =>
                             <option value={opt} key={opt}>{incidentTypes[opt]}</option>
@@ -141,7 +141,7 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                     <select name='depot' onChange={(e) => setFormFields({...formFields, "depot": e.target.value})}>
                         {formFields["depot"] === "" ?
                         <option hidden>Select one...</option> :
-                        <option hidden>{formFields["depot"]}</option>}
+                        <option hidden value={formFields["depot"]}>{depots[formFields["depot"]]}</option>}
 
                         {Object.keys(depots).map((opt) =>
                             <option value={opt} key={opt}>{depots[opt]}</option>

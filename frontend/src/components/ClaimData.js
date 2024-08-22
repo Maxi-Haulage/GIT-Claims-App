@@ -27,7 +27,7 @@ export default function ClaimData() {
                 <span><strong>Incident Date:</strong>   {blankCheck(claim.incident_date)}</span><br />
                 <span><strong>Claim Date:</strong>      {blankCheck(claim.claim_date)}</span><br />
                 <span><strong>Cost:</strong>            £{blankCheck(claim.cost)}</span><br />
-                <span><strong>Weight:</strong>          {blankCheck(claim.weight)}</span><br />
+                <span><strong>Weight:</strong>          {blankCheck(claim.weight)}kg</span><br />
                 <span><strong>Incident Type:</strong>   {blankCheck(claim.incident_type)}</span><br />
                 <br />
                 <span><strong>Status:</strong>          {blankCheck(claim.status)}</span><br />
