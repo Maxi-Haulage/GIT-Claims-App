@@ -103,6 +103,7 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                             }</strong><br />
                             <input
                             type='number'
+                            step="0.01"
                             name={field}
                             value={formFields[field]}
                             onChange={(e) => setFormFields({...formFields, [field]: e.target.value})}/>

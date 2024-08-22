@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Claim, Update
+from .models import Claim, Update, File
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from datetime import datetime, date
 
@@ -15,12 +15,13 @@ class ClaimSerializer(serializers.ModelSerializer):
         
         ret = super().to_representation(instance)
         
-        ret['incident_type'] = "".join([INCIDENT_TYPES[key] for key in INCIDENT_TYPES if key == ret['incident_type']])
-        ret['depot'] = "".join([DEPOTS[key] for key in DEPOTS if key == ret['depot']])
-        ret['status'] = "".join([STATUSES[key] for key in STATUSES if key == ret['status']])
+        ret['incident_type'] = INCIDENT_TYPES[ret["incident_type"]] if ret["incident_type"] != "" else ""
+        ret['depot'] = DEPOTS[ret["depot"]] if ret["depot"] != "" else ""
+        ret['status'] = STATUSES[ret["status"]] if ret["status"] != "" else ""
     
         return ret
     
+
 class AddClaimSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Claim
@@ -42,6 +43,7 @@ class AddClaimSerializer(serializers.ModelSerializer):
 
         return validated_data
     
+
 class EditClaimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Claim
@@ -58,12 +60,28 @@ class EditClaimSerializer(serializers.ModelSerializer):
             if ret[field] == None:
                 ret[field] = ""
 
-        ret['incident_type'] = "".join([INCIDENT_TYPES[key] for key in INCIDENT_TYPES if key == ret['incident_type']])
-        ret['depot'] = "".join([DEPOTS[key] for key in DEPOTS if key == ret['depot']])
-        ret['status'] = "".join([STATUSES[key] for key in STATUSES if key == ret['status']])
-
-        return ret
+        print(field)
+        """ret['incident_type'] = INCIDENT_TYPES[ret["incident_type"]] if ret["incident_type"] != "" else ""
+        ret['depot'] = DEPOTS[ret["depot"]] if ret["depot"] != "" else ""
+        ret['status'] = STATUSES[ret["status"]] if ret["status"] != "" else """""
         
+        return ret
+    
+    def to_internal_value(self, data):
+        if data["incident_date"] == "": data["incident_claim"] = None
+        if data["claim_date"] == "": data["claim_date"] = None
+
+        if data['weight'] == "": data['weight'] = None
+        if data['cost'] == "": data['cost'] = None
+
+        """data['incident_type'] = "".join([key for key in INCIDENT_TYPES if INCIDENT_TYPES[key] == data['incident_type']])
+        data['depot'] = "".join([key for key in DEPOTS if DEPOTS[key] == data['depot']])
+        data['status'] = "".join([key for key in STATUSES if STATUSES[key] == data['status']])"""
+
+
+        validated_data = super().to_internal_value(data)
+
+        return validated_data
 
 
 class UpdateSerializer(serializers.ModelSerializer):
@@ -84,3 +102,9 @@ class SubmitUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
         fields = ["note", "claim"]
+
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = ["file"]

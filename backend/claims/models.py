@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date, datetime
-from dateutil.relativedelta import relativedelta
+
+def upload_path(instance, filename):
+    return f"media/{instance.claim.id}/{filename}"
 
 INCIDENT_TYPES = {
     "WETDA" : "Wet",
@@ -87,19 +89,14 @@ class Claim(models.Model):
     police_involved = models.BooleanField(default=False)
 
     def save(self, **kwargs):
-
-        if self.status == "DORMA" and self.last_updated:
+        """if self.status == "DORMA" and self.last_updated:
             if self.last_updated > (date.today() - relativedelta(years=1)):
-                self.status = "ACTIV"
+                self.status = "ACTIV"""""
 
         if self.last_updated == None:
             self.last_updated = date.today()
         elif self.last_updated < date.today():
-            self.last_updated = date.today()
-            """if self.claim_date != None:
-                self.last_updated = self.claim_date
-            else:
-                self.last_updated = self.incident_date"""      
+            self.last_updated = date.today()    
 
         super().save(**kwargs)
     
@@ -121,14 +118,11 @@ class Update(models.Model):
     time = models.TimeField()
 
     def save(self, **kwargs):
-
-        print("this runs")
         today = date.today()
         time = datetime.now().time()
         self.date = today
         self.time = time
 
-        print(self.claim, self.claim.last_updated)
         claim = self.claim
         claim.last_updated = today
         claim.save()
@@ -154,3 +148,23 @@ class Police(models.Model):
     officer = models.CharField(max_length=100)
     reference_no = models.CharField(max_length=50)
     note = models.CharField(max_length=200, blank=True)
+
+
+class File(models.Model):
+    claim = models.ForeignKey(Claim, on_delete=models.CASCADE)
+
+    file = models.FileField(upload_to=upload_path, null=True, blank=True)
+    date = models.DateField()
+    time = models.TimeField()
+
+    def save(self, **kwargs):
+        today = date.today()
+        time = datetime.now().time()
+        self.date = today
+        self.time = time
+
+        claim = self.claim
+        claim.last_updated = today
+        claim.save()
+
+        super().save(**kwargs)

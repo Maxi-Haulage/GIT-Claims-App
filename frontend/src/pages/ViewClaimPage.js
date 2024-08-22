@@ -5,6 +5,7 @@ import ClaimData from '../components/ClaimData';
 import Updates from '../components/Updates';
 import SubmitUpdate from '../components/SubmitUpdate';
 import './ViewClaimPage.css';
+import SubmitFiles from '../components/SubmitFiles';
 
 export default function ViewClaimPage() {
     const [newPost, setNewPost] = useState(Math.random());
@@ -25,13 +26,21 @@ export default function ViewClaimPage() {
     }
 
     return (
-        <div className='content'>
+        <div className='claimPage'>
             <ClaimData />
             <br />
-            <div className='bottom-left'>
-                <h2>Updates</h2>
-                <SubmitUpdate onSubmit={handleSubmit}/>
-                <Updates newPost={newPost}/>
+
+            <div className='bottom'>
+                <div className='bottomLeft'>
+                    <h2>Updates</h2>
+                    <SubmitUpdate onSubmit={handleSubmit}/>
+                    <Updates newPost={newPost}/>
+                </div>
+
+                <div className='bottomRight'>
+                    <h2>Files</h2>
+                    <SubmitFiles />
+                </div>
             </div>
         </div>
     )

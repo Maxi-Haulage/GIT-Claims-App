@@ -1,10 +1,11 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser
 from .models import Claim, Update
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
-from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer
+from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer, FileSerializer
 
 # Possibly delete?
 class Home(APIView):
@@ -61,7 +62,7 @@ class ClaimUpdates(APIView):
             return Response(serializer.data)
         
         except:
-            # Return something more useful?
+            #TODO: Return something more useful
             return Response(data=reference, status=status.HTTP_404_NOT_FOUND)
         
 
@@ -73,6 +74,7 @@ class SubmitUpdate(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            #TODO: Return something more useful
             return Response("yay", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -85,14 +87,13 @@ class AddClaim(APIView):
         context={"incident_type": INCIDENT_TYPES, "depot": DEPOTS, "status": STATUSES}
         return Response(context)
 
-    def post(self, request):
+    def post(self, request, reference=None):
         serializer = AddClaimSerializer(data=request.data)
         
         if serializer.is_valid():
             claim = serializer.save()
             return Response(claim.id, status=status.HTTP_201_CREATED)
         else:
-            print(serializer.errors)
             if "incident_date" in serializer.errors.keys():
                 if serializer.errors["incident_date"][0] == "Date has wrong format. Use one of these formats instead: YYYY-MM-DD.":
                     serializer.errors["incident_date"][0] = "This field may not be blank"
@@ -105,6 +106,8 @@ class AddClaim(APIView):
         
 
 class EditClaim(APIView):
+    serializer = EditClaimSerializer
+
     def get(self, request, reference=None):
         try:
             serializer = EditClaimSerializer(Claim.objects.filter(id=int(reference))[0])
@@ -113,5 +116,64 @@ class EditClaim(APIView):
             return Response(data=reference, status=404)
 
     def post(self, request, reference=None):
-        # UPDATE CLAIM WITH NEW DATA
-        return Response()
+        if reference:
+            claim = get_object_or_404(Claim, id=int(reference))
+
+        serializer = EditClaimSerializer(claim, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Success", status=status.HTTP_202_ACCEPTED)
+        
+        else:
+            if "incident_date" in serializer.errors.keys():
+                if serializer.errors["incident_date"][0] == "Date has wrong format. Use one of these formats instead: YYYY-MM-DD.":
+                    serializer.errors["incident_date"][0] = "This field may not be blank"
+
+            if "incident_type" in serializer.errors.keys():
+                if serializer.errors["incident_type"][0] == '"" is not a valid choice.':
+                    serializer.errors["incident_type"][0] = "This field may not be blank"
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class SubmitFiles(APIView):
+    serializer_class = FileSerializer
+    parser_classes = [MultiPartParser]
+
+    def post(self, request, reference=None):
+        if reference:
+            claim = get_object_or_404(Claim, id=int(reference))
+
+        serializer = FileSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.validated_data["claim"] = claim
+            serializer.save()
+            return Response("Success", status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SubmitFiles(APIView):
+    serializer_class = FileSerializer
+    parser_classes = [MultiPartParser]
+
+    def post(self, request, reference=None):
+        if reference:
+            claim = get_object_or_404(Claim, id=int(reference))
+
+        serializer = FileSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.validated_data["claim"] = claim
+            serializer.save()
+            return Response("Success", status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
+class ClaimFiles(APIView):
+    serializer_class = FileSerializer
+
+    #TODO: get() files
