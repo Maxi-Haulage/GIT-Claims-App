@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
-import ViewAll from './pages/ViewAll.js';
-import ViewClaimPage from './pages/ViewClaimPage.js';
-import AddClaimPage from './pages/AddClaimPage.js';
+import ViewAll from './pages/ViewAll';
+import ViewClaimPage from './pages/ViewClaimPage';
+import AddClaimPage from './pages/AddClaimPage';
 import EditClaimPage from './pages/EditClaimPage';
 import './App.css';
 

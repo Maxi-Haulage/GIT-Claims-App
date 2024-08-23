@@ -5,7 +5,8 @@ import { useLocation, useParams } from 'react-router-dom';
 export default function Navbar() {
     let location = useLocation();
     let { id } = useParams();
-    let destination = `/edit-claim/${id}`
+    let editLink = `/edit-claim/${id}`
+    let deleteLink = `/delete-claim/${id}`
 
     function viewPageCheck() {
         if ((location.pathname).includes("view-claim/")) {
@@ -19,7 +20,8 @@ export default function Navbar() {
             <a href='/'><img src='/logo.png' alt="Logo"></img></a>
             <nav>
                 <a href='/add-claim'>Add Claim</a>
-                {viewPageCheck() && <a href={destination} className='edit'>Edit Claim</a>}
+                {viewPageCheck() && <a href={editLink} className='edit'>Edit Claim</a>}
+                {viewPageCheck() && <a href={deleteLink}>Delete Claim</a>}
             </nav>
         </header>
     )
