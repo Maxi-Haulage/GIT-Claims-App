@@ -65,7 +65,7 @@ export default function ViewClaimPage() {
                 <div className='bottomRight'>
                     <h2>Files</h2>
                     <SubmitFiles onSubmit={handleFileSubmit} setFiles={setFiles} />
-                    <ViewFiles newFile={newFile} />
+                    <ViewFiles newFile={newFile} setNewFile={setNewFile}/>
                 </div>
             </div>
         </div>

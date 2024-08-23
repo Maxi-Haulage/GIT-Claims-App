@@ -159,15 +159,21 @@ class File(models.Model):
     time = models.TimeField(null=True)
 
     def save(self, **kwargs):
-        today = date.today()
-        time = datetime.now().time()
-        self.date = today
-        self.time = time
+        if not self.pk:
+            today = date.today()
+            time = datetime.now().time()
+            self.date = today
+            self.time = time
 
-        claim = self.claim
-        claim.last_updated = today
-        claim.save()
-        
-        self.name = self.file.name
+            claim = self.claim
+            claim.last_updated = today
+            claim.save()
+            
+            self.name = self.file.name
 
         super().save(**kwargs)
+
+    def delete(self, **kwargs):
+        # Deletes stored file THEN deletes object 
+        self.file.delete()
+        super().delete(**kwargs)

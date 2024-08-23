@@ -44,6 +44,22 @@ textarea:focus, input[type=text]:focus, select:focus {
     background-color:#6e0e0f;
 }
 
+.deleteButton {
+    text-align: center;
+    border: none;
+    font-size: 1em;
+    padding: 0.3em;
+    color: white;
+    background-color: #d71b1d;
+    border-radius: 5px;
+    transition: background-color 200ms;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    background-color:#6e0e0f;
+}
+
 select {
     font-size: 1.1em;
     padding: 0.4em 0.5em;

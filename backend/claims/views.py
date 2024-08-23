@@ -78,7 +78,7 @@ class SubmitUpdate(APIView):
             return Response("yay", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+      
 
 class AddClaim(APIView):
     serializer_class = AddClaimSerializer
@@ -135,7 +135,18 @@ class EditClaim(APIView):
                     serializer.errors["incident_type"][0] = "This field may not be blank"
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+
+class DeleteClaim(APIView):
+    def get(self, request, reference=None):
+        try:
+            if reference:
+                claim = get_object_or_404(Claim, id=int(reference))
+
+            claim.delete()
+            return Response(status=status.HTTP_200_OK) 
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)      
 
 class SubmitFiles(APIView):
     serializer_class = FileSerializer
@@ -171,3 +182,14 @@ class ClaimFiles(APIView):
             #TODO: Return something more useful
             return Response(data=reference, status=status.HTTP_404_NOT_FOUND)
      
+
+class DeleteFile(APIView):
+    def get(self, request, file_id=None):
+        try:
+            if file_id:
+                file = get_object_or_404(File, id=int(file_id))
+
+            file.delete()
+            return Response()
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)  

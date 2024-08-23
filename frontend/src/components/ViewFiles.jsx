@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ViewFiles.css';
 import { FaTrashAlt } from 'react-icons/fa';
+import Popup from 'reactjs-popup';
 
-export default function ViewFiles({ newFile }) {
+export default function ViewFiles({ newFile, setNewFile }) {
     const [files, setFiles] = useState([]);
     let { id } = useParams();  
 
@@ -24,7 +25,14 @@ export default function ViewFiles({ newFile }) {
 
     function deleteFile(file) {
         //TODO: delete file from Django database
-        //console.log(file.name);
+        console.log(file.id);
+        axios.get(`http://localhost:8000/claims/delete-file/${file.id}`)
+        .then(response => {
+            setNewFile(Math.random());
+        }) 
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     return (
@@ -37,7 +45,11 @@ export default function ViewFiles({ newFile }) {
                     </div>
 
                     <div className='time'>
-                        <button type='button' onClick={deleteFile(file)}><FaTrashAlt size={20}/></button>
+                        <Popup 
+                            trigger={<button><FaTrashAlt size={20}/></button>}
+                            position='right center'>
+                            <button className='deleteButton' onClick={() => deleteFile(file)}>Confirm Delete</button>
+                        </Popup>
                         <span>{file.time} {file.date}</span>
                     </div>
                 </div>
