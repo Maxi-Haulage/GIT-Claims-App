@@ -154,8 +154,9 @@ class File(models.Model):
     claim = models.ForeignKey(Claim, on_delete=models.CASCADE)
 
     file = models.FileField(upload_to=upload_path, null=True, blank=True)
-    date = models.DateField()
-    time = models.TimeField()
+    name = models.CharField(max_length=100)
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True)
 
     def save(self, **kwargs):
         today = date.today()
@@ -166,5 +167,7 @@ class File(models.Model):
         claim = self.claim
         claim.last_updated = today
         claim.save()
+        
+        self.name = self.file.name
 
         super().save(**kwargs)

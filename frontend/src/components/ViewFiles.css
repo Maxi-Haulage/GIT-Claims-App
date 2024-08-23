@@ -1,20 +1,23 @@
-.updates {
-    display: flex;
+.files {
+    display: grid;
     font-size: 1.3em;
     line-height: 1.3em;
-    padding: 2%;
+    padding: 0.5em 0.7em;
     background-color: #d1b9b9;
     margin-bottom: 0.3em;
     border-radius: 10px 10px 10px 10px;
 }   
 
-.note {
-    width: 80%;
-    padding-right: 1%;
+.files .file {
+    text-align: left;
 }
 
-.time {
-    width: 20%;
+.files .time {
+    float: right;
+    width:100%;
     text-align: right;
 }
 
+.files .time span {
+    float: left;
+}

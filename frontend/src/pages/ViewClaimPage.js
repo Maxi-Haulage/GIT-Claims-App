@@ -6,12 +6,16 @@ import Updates from '../components/Updates';
 import SubmitUpdate from '../components/SubmitUpdate';
 import './ViewClaimPage.css';
 import SubmitFiles from '../components/SubmitFiles';
+import ViewFiles from '../components/ViewFiles';
 
 export default function ViewClaimPage() {
     const [newPost, setNewPost] = useState(Math.random());
+    const [newFile, setNewFile] = useState(Math.random());
     let { id } = useParams(); 
 
-    function handleSubmit(e) {
+    const [files, setFiles] = useState("");
+
+    function handleUpdateSubmit(e) {
         e.preventDefault();
 
         axios.post(`http://localhost:8000/claims/submit-update/`, 
@@ -19,6 +23,27 @@ export default function ViewClaimPage() {
         claim: id})
         .then(response => {
             setNewPost(Math.random());
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    function handleFileSubmit(e) {
+        e.preventDefault();
+
+        const form = new FormData();
+        for (let i=0; i<files.length; i++) {
+            form.append("file", files[i]);
+        }    
+        
+        var frm = document.getElementById("fileSubmission");
+        frm.reset();
+
+        axios.post(`http://localhost:8000/claims/submit-files/${id}/`,
+        form)
+        .then(response => {
+            setNewFile(Math.random());
         })
         .catch(error => {
             console.log(error);
@@ -33,13 +58,14 @@ export default function ViewClaimPage() {
             <div className='bottom'>
                 <div className='bottomLeft'>
                     <h2>Updates</h2>
-                    <SubmitUpdate onSubmit={handleSubmit}/>
-                    <Updates newPost={newPost}/>
+                    <SubmitUpdate onSubmit={handleUpdateSubmit}/>
+                    <Updates newPost={newPost} />
                 </div>
 
                 <div className='bottomRight'>
                     <h2>Files</h2>
-                    <SubmitFiles />
+                    <SubmitFiles onSubmit={handleFileSubmit} setFiles={setFiles} />
+                    <ViewFiles newFile={newFile} />
                 </div>
             </div>
         </div>

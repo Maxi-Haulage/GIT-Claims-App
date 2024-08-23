@@ -11,7 +11,7 @@ class PoliceAdmin(admin.ModelAdmin):
     list_display = ("claim", "force", "note")
 
 class FileAdmin(admin.ModelAdmin):
-    list_display = ("claim", "date", "file")
+    list_display = ("claim", "date","name", "file")
 
 admin.site.register(Claim, ClaimAdmin)
 admin.site.register(Update, UpdateAdmin)

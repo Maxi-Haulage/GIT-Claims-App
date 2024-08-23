@@ -74,11 +74,6 @@ class EditClaimSerializer(serializers.ModelSerializer):
         if data['weight'] == "": data['weight'] = None
         if data['cost'] == "": data['cost'] = None
 
-        """data['incident_type'] = "".join([key for key in INCIDENT_TYPES if INCIDENT_TYPES[key] == data['incident_type']])
-        data['depot'] = "".join([key for key in DEPOTS if DEPOTS[key] == data['depot']])
-        data['status'] = "".join([key for key in STATUSES if STATUSES[key] == data['status']])"""
-
-
         validated_data = super().to_internal_value(data)
 
         return validated_data
@@ -107,4 +102,20 @@ class SubmitUpdateSerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ["file"]
+        fields = ["file", "name", "date", "time", "id"]
+
+    def to_internal_value(self, data):
+        data["name"] = data["file"].name
+
+        validated_data = super().to_internal_value(data)
+
+        return validated_data
+    
+    def to_representation(self, instance):
+        """Remove extra digits from the time."""
+        
+        ret = super().to_representation(instance)
+        
+        ret['time'] = ret['time'][:5]
+
+        return ret
