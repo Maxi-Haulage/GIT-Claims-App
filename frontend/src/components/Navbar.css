@@ -19,14 +19,23 @@ nav a {
     text-decoration: none;
     color: black;
     padding: 1vb;
-    margin: 1vb
+    margin: 1vb;
 }
 
-nav a:hover {
+nav a:hover, .navbarButton:hover {
     background-color: #d1b9b9;
     border-radius: 30px;
 }
 
 nav .edit >[href="/view-claim"] {
     display: block;
+}
+
+.navbarButton {
+    font-size: 1.3em;
+    padding: 1vb;
+    margin: 1vb;
+    background: none;
+    border: none;
+    cursor: pointer;
 }

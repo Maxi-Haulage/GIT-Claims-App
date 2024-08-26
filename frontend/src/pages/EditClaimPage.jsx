@@ -12,7 +12,7 @@ export default function EditClaimPage() {
     const [formFields, setFormFields] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/edit-claim/${id}/`)
+        axios.get(`${import.meta.env.VITE_API}/edit-claim/${id}/`)
         .then(response => {
             setFormFields(response.data);
         }) 
@@ -24,7 +24,7 @@ export default function EditClaimPage() {
     function handleSubmit(e, fields) {
         e.preventDefault();
 
-        axios.post(`http://localhost:8000/claims/edit-claim/${id}/`, 
+        axios.post(`${import.meta.env.VITE_API}/edit-claim/${id}/`, 
         fields)
         .then(response => {
             navigate(`/view-claim/${id}`)

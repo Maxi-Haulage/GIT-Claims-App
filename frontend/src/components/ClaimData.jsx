@@ -9,7 +9,7 @@ export default function ClaimData() {
     let { id } = useParams();  
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/claim-data/${id}`)
+        axios.get(`${import.meta.env.VITE_API}/claim-data/${id}`)
         .then(response => {
             setClaim(response.data);
         }) 

@@ -146,7 +146,8 @@ class DeleteClaim(APIView):
             claim.delete()
             return Response(status=status.HTTP_200_OK) 
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)      
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+              
 
 class SubmitFiles(APIView):
     serializer_class = FileSerializer
@@ -169,7 +170,6 @@ class SubmitFiles(APIView):
 class ClaimFiles(APIView):
     serializer_class = FileSerializer
 
-    #TODO: get() files
     def get(self, request, reference=None):
         try:
             target_claim = Claim.objects.filter(id=int(reference))[0]
@@ -179,7 +179,6 @@ class ClaimFiles(APIView):
             return Response(serializer.data)
         
         except:
-            #TODO: Return something more useful
             return Response(data=reference, status=status.HTTP_404_NOT_FOUND)
      
 

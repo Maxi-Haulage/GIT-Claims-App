@@ -16,15 +16,17 @@ export default function ViewAll() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/view-active`)
-        .then(response => {            
+        console.log(import.meta.env.VITE_API);
+
+        axios.get(`${import.meta.env.VITE_API}/view-active`)
+        .then(response => {           
             setActive(response.data);
         })  
         .catch(error => {
             console.log(error);
         });
 
-        axios.get('http://localhost:8000/claims/view-dormant')
+        axios.get(`${import.meta.env.VITE_API}/view-dormant`)
         .then(response => {            
             setDormant(response.data);
         }) 
@@ -32,7 +34,7 @@ export default function ViewAll() {
             console.log(error);
         });
 
-        axios.get('http://localhost:8000/claims/view-closed')
+        axios.get(`${import.meta.env.VITE_API}/view-closed`)
         .then(response => {            
             setClosed(response.data);
         }) 

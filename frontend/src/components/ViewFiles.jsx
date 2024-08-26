@@ -10,7 +10,7 @@ export default function ViewFiles({ newFile, setNewFile }) {
     let { id } = useParams();  
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/claim-files/${id}`)
+        axios.get(`${import.meta.env.VITE_API}/claim-files/${id}`)
         .then(response => {
             setFiles(response.data);
         }) 
@@ -24,9 +24,8 @@ export default function ViewFiles({ newFile, setNewFile }) {
     }
 
     function deleteFile(file) {
-        //TODO: delete file from Django database
         console.log(file.id);
-        axios.get(`http://localhost:8000/claims/delete-file/${file.id}`)
+        axios.get(`${import.meta.env.VITE_API}/delete-file/${file.id}`)
         .then(response => {
             setNewFile(Math.random());
         }) 

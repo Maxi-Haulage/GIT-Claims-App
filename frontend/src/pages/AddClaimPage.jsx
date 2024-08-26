@@ -27,10 +27,10 @@ export default function AddClaimPage() {
     function handleSubmit(e, fields) {
         e.preventDefault();
 
-        axios.post(`http://localhost:8000/claims/add-claim/`, 
+        axios.post(`${import.meta.env.VITE_API}/add-claim/`, 
         fields)
         .then(response => {
-            navigate(`/view-claim/${response.data}`)
+            navigate(`/view-claim/${response.data}`);
         })
         .catch(error => {
             setErrors(error.response.data);

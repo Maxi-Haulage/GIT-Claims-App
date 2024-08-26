@@ -13,7 +13,7 @@ export default function Updates({ newPost }) {
     let { id } = useParams();  
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/claim-updates/${id}`)
+        axios.get(`${import.meta.env.VITE_API}/claim-updates/${id}`)
         .then(response => {
             setUpdates(response.data);
 

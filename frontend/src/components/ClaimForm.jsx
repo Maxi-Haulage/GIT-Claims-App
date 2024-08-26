@@ -29,7 +29,7 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
     const extras = ["location", "driver"];
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/claims/add-claim/`)
+        axios.get(`${import.meta.env.VITE_API}/add-claim/`)
         .then(response => {
             setIncidentTypes(response.data["incident_type"]);
             setDepots(response.data["depot"]);

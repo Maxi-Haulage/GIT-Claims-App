@@ -18,7 +18,7 @@ export default function ViewClaimPage() {
     function handleUpdateSubmit(e) {
         e.preventDefault();
 
-        axios.post(`http://localhost:8000/claims/submit-update/`, 
+        axios.post(`${import.meta.env.VITE_API}/submit-update/`, 
         {note: e.target[0].value,
         claim: id})
         .then(response => {
@@ -40,7 +40,7 @@ export default function ViewClaimPage() {
         var frm = document.getElementById("fileSubmission");
         frm.reset();
 
-        axios.post(`http://localhost:8000/claims/submit-files/${id}/`,
+        axios.post(`${import.meta.env.VITE_API}/submit-files/${id}/`,
         form)
         .then(response => {
             setNewFile(Math.random());
