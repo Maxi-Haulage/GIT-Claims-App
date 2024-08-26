@@ -3,6 +3,7 @@ import './Navbar.css';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
+import SearchBar from './SearchBar';
 
 export default function Navbar() {
     let location = useLocation();
@@ -29,6 +30,8 @@ export default function Navbar() {
         });
     }
 
+
+
     return (
         <header>
             <a href='/'><img src='/logo.png' alt="Logo"></img></a>
@@ -42,6 +45,10 @@ export default function Navbar() {
                         <button className='deleteButton' onClick={() => deleteClaim(id)}>Confirm Delete</button>
                     </Popup>}
             </nav>
+
+            <div className='search'>
+                <SearchBar />
+            </div>
         </header>
     )
 }

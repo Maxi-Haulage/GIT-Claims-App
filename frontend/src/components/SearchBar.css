@@ -1,0 +1,15 @@
+.searchBar {
+    float: right;
+    width:30%;
+    height: 2em;
+    transition: width 0.4s ease-in-out;
+    background-image: url('searchicon.png');
+}
+  
+.searchBar:focus {
+    width: 90%;
+}
+
+#searchIcon {
+    float: right;
+}

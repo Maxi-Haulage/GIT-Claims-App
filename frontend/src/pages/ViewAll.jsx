@@ -16,8 +16,6 @@ export default function ViewAll() {
     }
 
     useEffect(() => {
-        console.log(import.meta.env.VITE_API);
-
         axios.get(`${import.meta.env.VITE_API}/view-active`)
         .then(response => {           
             setActive(response.data);

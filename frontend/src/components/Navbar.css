@@ -12,6 +12,7 @@ img {
 nav {
     margin: auto;  
     margin-left: 5%;
+    width: 60%;    
 }
 
 nav a {
@@ -39,3 +40,10 @@ nav .edit >[href="/view-claim"] {
     border: none;
     cursor: pointer;
 }
+
+.search {
+    margin: auto;
+    overflow: auto;
+    width: 40%;
+}
+
