@@ -44,6 +44,7 @@ nav .edit >[href="/view-claim"] {
 .search {
     margin: auto;
     overflow: auto;
+    display: flex;
     width: 40%;
 }
 

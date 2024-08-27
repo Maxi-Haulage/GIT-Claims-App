@@ -5,6 +5,7 @@ import ViewAll from './pages/ViewAll';
 import ViewClaimPage from './pages/ViewClaimPage';
 import AddClaimPage from './pages/AddClaimPage';
 import EditClaimPage from './pages/EditClaimPage';
+import SearchResults from './pages/SearchResults';
 import './App.css';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/view-claim/:id" element={<ViewClaimPage />} />
             <Route path="/add-claim" element={<AddClaimPage />} />
             <Route path="/edit-claim/:id" element={<EditClaimPage />} />
+            <Route path='/results' element={<SearchResults />} />
           </Route>
         </Routes>
     </BrowserRouter>

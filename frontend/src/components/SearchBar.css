@@ -1,3 +1,8 @@
+.searchBarDiv {
+    float: left;
+    margin-left: 5px;
+}
+
 .searchBar {
     float: right;
     width:30%;
@@ -7,9 +12,9 @@
 }
   
 .searchBar:focus {
-    width: 90%;
+    width: 100%;
 }
 
-#searchIcon {
+.buttonDiv {
     float: right;
 }

@@ -1,26 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './SearchBar.css';
 import { FaSearch } from "react-icons/fa";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function SearchBar() {
-    const [search, setSearch] = useState("");
+    const navigate = useNavigate();
+    let [searchParams, setSearchParams] = useSearchParams();
+    const [searchInput, setSearchInput] = useState("");
 
-    function makeSearch() {
-        
+    function makeSearch(e) {
+        e.preventDefault();
+
+        if ((location.pathname).includes("results")) {
+            setSearchParams({"search": searchInput});
+        } else {
+        navigate(`/results?search=${searchInput}`);
+        }
     }
 
     return (
         <div>
             <form onSubmit={(e) => makeSearch(e)}>
-                <input
-                    type='text'
-                    className='searchBar'
-                    label="Search"
-                    onSubmit={console.log("HI")}
-                />
+                <div className='searchBarDiv'>
+                    <input
+                        type='text'
+                        className='searchBar'
+                        label="Search"
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
+                </div>
 
-                <button><FaSearch size={30} id='searchIcon' /></button>
+                <div className='buttonDiv'>
+                    <button><FaSearch size={30} id='searchIcon' /></button>
+                </div>
             </form>
         </div>
     )

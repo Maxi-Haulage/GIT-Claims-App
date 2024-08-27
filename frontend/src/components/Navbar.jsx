@@ -41,7 +41,7 @@ export default function Navbar() {
                 {viewPageCheck() && 
                     <Popup 
                         trigger={<button className='navbarButton'>Delete Claim</button>}
-                        position='right center'>
+                        position='bottom center'>
                         <button className='deleteButton' onClick={() => deleteClaim(id)}>Confirm Delete</button>
                     </Popup>}
             </nav>

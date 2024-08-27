@@ -7,11 +7,6 @@ from .models import Claim, Update, File
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer, FileSerializer
 
-# Possibly delete?
-class Home(APIView):
-    def get(self, request):
-        return Response("")
-
 
 class ViewActive(APIView):
     serializer_class = ClaimSerializer
@@ -35,6 +30,14 @@ class ViewClosed(APIView):
     def get(self, request):
         serializer = ClaimSerializer(Claim.objects.filter(status="CLOSE").order_by('-last_updated'), many=True)
         return Response(serializer.data)
+    
+
+class SearchResults(APIView):
+    serializer_class = ClaimSerializer
+
+    def get(self, request):
+        return Response()
+
     
 
 class ClaimData(APIView):
@@ -62,7 +65,6 @@ class ClaimUpdates(APIView):
             return Response(serializer.data)
         
         except:
-            #TODO: Return something more useful
             return Response(data=reference, status=status.HTTP_404_NOT_FOUND)
         
 
@@ -74,11 +76,23 @@ class SubmitUpdate(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            #TODO: Return something more useful
-            return Response("yay", status=status.HTTP_201_CREATED)
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
       
+
+class DeleteUpdate(APIView):
+    def get(self, request, update_id=None):
+        try:
+            if update_id:
+                update = get_object_or_404(Update, id=int(update_id))
+
+            update.delete()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)  
+        
+
 
 class AddClaim(APIView):
     serializer_class = AddClaimSerializer
@@ -149,6 +163,8 @@ class DeleteClaim(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
               
 
+
+
 class SubmitFiles(APIView):
     serializer_class = FileSerializer
     parser_classes = [MultiPartParser]
@@ -189,6 +205,6 @@ class DeleteFile(APIView):
                 file = get_object_or_404(File, id=int(file_id))
 
             file.delete()
-            return Response()
+            return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)  
