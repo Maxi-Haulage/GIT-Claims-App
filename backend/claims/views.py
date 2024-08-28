@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser
+from django.db.models import Q
 from .models import Claim, Update, File
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer, FileSerializer
@@ -34,9 +35,25 @@ class ViewClosed(APIView):
 
 class SearchResults(APIView):
     serializer_class = ClaimSerializer
+    fields = ["incident_date", "claim_date", "status", "cost", 
+                  "weight", "incident_type", "company", "secondary", 
+                  "ajg_ref", "maxi_ref", "company_ref", "description", 
+                  "driver", "location", "depot", "police_involved", "id"]
 
     def get(self, request):
-        return Response()
+        search = request.query_params.get('search', None)
+        print(search)
+
+        if search:
+            q_filter = Q()
+            for field in self.fields:
+                q_filter |= Q(**{f"{field}__icontains":search})
+
+            queryset = Claim.objects.filter(q_filter)
+
+        print(queryset)
+        serializer = ClaimSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     
 

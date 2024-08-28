@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ViewAll({ stats }) {
+export default function ViewAll({ active, dormant, closed }) {
     /*const [active, setActive] = useState([]);
     const [dormant, setDormant] = useState([])
     const [closed, setClosed] = useState([]);*/
+
+    const stats = {"Active": active, "Dormant": dormant, "Closed": closed};
 
     const navigate = useNavigate();
     const openClaim = (id) => {

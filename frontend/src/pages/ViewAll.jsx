@@ -9,8 +9,6 @@ export default function ViewAll() {
     const [dormant, setDormant] = useState([])
     const [closed, setClosed] = useState([]);
 
-    const stats = {"Active": active, "Dormant": dormant, "Closed": closed};
-
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API}/view-active`)
         .then(response => {           
@@ -40,6 +38,6 @@ export default function ViewAll() {
 
 
     return (
-        <ClaimTable stats={stats}/>
+        <ClaimTable active={active} dormant={dormant} closed={closed} />
     );
 }

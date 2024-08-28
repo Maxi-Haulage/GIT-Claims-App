@@ -5,17 +5,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function SearchBar() {
     const navigate = useNavigate();
-    let [searchParams, setSearchParams] = useSearchParams();
     const [searchInput, setSearchInput] = useState("");
 
     function makeSearch(e) {
         e.preventDefault();
-
-        if ((location.pathname).includes("results")) {
-            setSearchParams({"search": searchInput});
-        } else {
         navigate(`/results?search=${searchInput}`);
-        }
     }
 
     return (
