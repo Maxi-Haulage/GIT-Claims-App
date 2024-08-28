@@ -33,11 +33,20 @@ class AddClaimSerializer(serializers.ModelSerializer):
         exclude = ["id", "last_updated"]
 
     def to_internal_value(self, data):
-        if data["incident_date"] == "": data["incident_claim"] = None
-        if data["claim_date"] == "": data["claim_date"] = None
+        if data.get("incident_date"):
+            if data["incident_date"] == "": data["incident_claim"] = None
+        
+        if data.get("claim_date"):
+            if data["claim_date"] == "": data["claim_date"] = None
 
-        if data['weight'] == "": data['weight'] = None
-        if data['cost'] == "": data['cost'] = None
+        if data.get("weight"):
+            if data['weight'] == "": data['weight'] = None
+        
+        if data.get("cost"):
+            if data['cost'] == "": data['cost'] = None
+
+        if data.get("police_involved"):
+            if data['police_involved'] == "true": data['police_involved'] = True
 
         validated_data = super().to_internal_value(data)
 
@@ -60,7 +69,6 @@ class EditClaimSerializer(serializers.ModelSerializer):
             if ret[field] == None:
                 ret[field] = ""
 
-        print(field)
         """ret['incident_type'] = INCIDENT_TYPES[ret["incident_type"]] if ret["incident_type"] != "" else ""
         ret['depot'] = DEPOTS[ret["depot"]] if ret["depot"] != "" else ""
         ret['status'] = STATUSES[ret["status"]] if ret["status"] != "" else """""

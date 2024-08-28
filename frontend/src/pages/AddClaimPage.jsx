@@ -8,27 +8,13 @@ export default function AddClaimPage() {
     const navigate = useNavigate();
 
     const [errors, setErrors] = useState({});
-    const [formFields, setFormFields] = useState({"company": "",
-                                                "company_ref": "",
-                                                "ajg_ref": "",
-                                                "maxi_ref": "",
-                                                "incident_date": "",
-                                                "claim_date": "",
-                                                "incident_type": "",
-                                                "depot": "",
-                                                "status": "ACTIV",
-                                                "weight": "",
-                                                "cost": "",
-                                                "description": "",
-                                                "location": "",
-                                                "driver": "",
-                                                "police": false});
+    const [formFields, setFormFields] = useState({});
 
-    function handleSubmit(e, fields) {
+    function handleSubmit(e) {
         e.preventDefault();
 
         axios.post(`${import.meta.env.VITE_API}/add-claim/`, 
-        fields)
+        formFields)
         .then(response => {
             navigate(`/view-claim/${response.data}`);
         })

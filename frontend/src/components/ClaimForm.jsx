@@ -21,9 +21,10 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                     "description": "Description",
                     "location": "Location",
                     "driver": "Driver",
-                    "police": "Police"};
+                    "police_involved": "Police Involved?",
+                    "secondary": "Secondary Company"};
 
-    const references = ["company", "company_ref", "ajg_ref", "maxi_ref"];
+    const references = ["company", "company_ref", "ajg_ref", "maxi_ref", "secondary"];
     const dates = ["incident_date", "claim_date"];
     const figures = ["weight", "cost"];
     const extras = ["location", "driver"];
@@ -40,10 +41,17 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
         });
     }, []);
 
+    function policeCheck() {
+        if (formFields["police_involved"]) {
+            return true;
+        }
+        return false;
+    }
+
 
     return (
         <div className='addClaim'>
-            <form onSubmit={e => onSubmit(e, formFields)} className='form'>
+            <form onSubmit={e => onSubmit(e)} className='form'>
                 
                 <div className='top'>
                 <div className='topLeft'>
@@ -150,12 +158,13 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                     </select>
                     <br />
 
-                    <label>{errors["police"]} </label><strong>{aliases["police"]}</strong><br />
+                    <label>{errors["police_involved"]} </label><strong>{aliases["police_involved"]}</strong><br />
                     <input
                     type='checkbox'
-                    name='police'
-                    value={formFields["police"]}
-                    onChange={(e) => setFormFields({...formFields, "police": !formFields["police"]})}/>             
+                    name='police_involved'
+                    value={true}
+                    checked={policeCheck()}
+                    onChange={(e) => setFormFields({...formFields, "police_involved": !formFields["police_involved"]})}/>             
                 
                 </div>
                 </div>

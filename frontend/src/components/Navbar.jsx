@@ -20,6 +20,13 @@ export default function Navbar() {
         return false;
     };
 
+    function searchPageCheck() {
+        if ((location.pathname).includes("/results")) {
+            return true;
+        }
+        return false;
+    };
+
     function deleteClaim(id) {
         axios.get(`${import.meta.env.VITE_API}/delete-claim/${id}`)
         .then(response => {

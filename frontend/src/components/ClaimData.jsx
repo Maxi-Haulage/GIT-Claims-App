@@ -37,8 +37,8 @@ export default function ClaimData() {
             <div className='top-right'>
                 <span><strong>AJG Reference:</strong>             {blankCheck(claim.ajg_ref)}</span><br />
                 <span><strong>Maxi Reference:</strong>            {blankCheck(claim.maxi_ref)}</span><br />
-                <span><strong>{claim.company} Reference:</strong> {blankCheck(claim.company_ref)} </span><br />
-                <br />
+                <span><strong>{claim.company} Reference:</strong> {blankCheck(claim.company_ref)}</span><br />
+                <span><strong>Secondary Company:</strong>         {blankCheck(claim.secondary)}</span><br/>
                 <br />
                 <br />
                 <span><strong>Location:</strong>                  {blankCheck(claim.location)}</span><br />

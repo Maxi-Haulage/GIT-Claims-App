@@ -25,7 +25,7 @@ export default function SearchBar() {
                 </div>
 
                 <div className='buttonDiv'>
-                    <button><FaSearch size={30} id='searchIcon' /></button>
+                    <button className='iconButton'><FaSearch size={25} id='searchIcon' /></button>
                 </div>
             </form>
         </div>

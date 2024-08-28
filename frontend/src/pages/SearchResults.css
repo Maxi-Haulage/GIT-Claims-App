@@ -1,0 +1,9 @@
+.advancedSearch {
+    padding-top: 2em;
+    margin:auto;
+    width: 60%;    
+}
+
+.advancedSearch h2 {
+    display: inline;  
+}

@@ -38,23 +38,29 @@ class SearchResults(APIView):
     fields = ["incident_date", "claim_date", "status", "cost", 
                   "weight", "incident_type", "company", "secondary", 
                   "ajg_ref", "maxi_ref", "company_ref", "description", 
-                  "driver", "location", "depot", "police_involved", "id"]
+                  "driver", "location", "depot", "id"]
 
     def get(self, request):
+        q_filter = Q()
+        
         search = request.query_params.get('search', None)
-        print(search)
-
         if search:
-            q_filter = Q()
             for field in self.fields:
                 q_filter |= Q(**{f"{field}__icontains":search})
 
-            queryset = Claim.objects.filter(q_filter)
-
-        print(queryset)
+        else:
+            for field in self.fields:
+                if request.query_params.get(field, None):
+                    print(request.query_params.get(field, None))
+                    q_filter &= Q(**{f"{field}__icontains":request.query_params.get(field, None)})
+            
+            police_involved = request.query_params.get("police_involved", None)
+            if police_involved == "true":
+                q_filter &= Q(police_involved=True)
+        
+        queryset = Claim.objects.filter(q_filter)
         serializer = ClaimSerializer(queryset, many=True)
         return Response(serializer.data)
-
     
 
 class ClaimData(APIView):
@@ -68,6 +74,8 @@ class ClaimData(APIView):
         
         except:
             return Response(data=reference, status=404)
+        
+
         
 
 class ClaimUpdates(APIView):

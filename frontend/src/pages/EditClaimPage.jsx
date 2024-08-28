@@ -15,22 +15,22 @@ export default function EditClaimPage() {
         axios.get(`${import.meta.env.VITE_API}/edit-claim/${id}/`)
         .then(response => {
             setFormFields(response.data);
+            console.log(response.data);
         }) 
         .catch(error => {
             console.log(error);
         });
     }, [id]);
 
-    function handleSubmit(e, fields) {
+    function handleSubmit(e) {
         e.preventDefault();
 
         axios.post(`${import.meta.env.VITE_API}/edit-claim/${id}/`, 
-        fields)
+        formFields)
         .then(response => {
             navigate(`/view-claim/${id}`)
         })
         .catch(error => {
-            console.log(fields);
             setErrors(error.response.data);
         });
     }

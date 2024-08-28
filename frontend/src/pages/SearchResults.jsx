@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import ClaimTable from '../components/ClaimTable';
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import './SearchResults.css';
+import AdvancedSearch from '../components/AdvancedSearch';
 
 export default function SearchResults() {
+    const [advancedOpen, setAdvancedOpen] = useState(false);
+    
     const [active, setActive] = useState([]);
     const [dormant, setDormant] = useState([])
     const [closed, setClosed] = useState([]);
@@ -30,7 +35,7 @@ export default function SearchResults() {
     }
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API}/search-results?`+searchParams)
+        axios.get(`${import.meta.env.VITE_API}/search-results/?`+searchParams)
         .then(response => {           
             sortData(response.data);
         })  
@@ -41,6 +46,18 @@ export default function SearchResults() {
 
     return (
         <div>
+            <div className='advancedSearch'> 
+                <h2>Advanced Search</h2> 
+                <button type='button' className='iconButton' onClick={() => setAdvancedOpen(!advancedOpen)}>
+                    {advancedOpen ? (
+                        <FaChevronUp size={20}/>
+                    ) : (
+                        <FaChevronDown size={20}/>
+                    )}
+                </button>
+            </div>
+            {advancedOpen && <AdvancedSearch />}
+
             <ClaimTable active={active} dormant={dormant} closed={closed} />
         </div>
     )
