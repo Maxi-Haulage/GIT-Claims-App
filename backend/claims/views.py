@@ -52,10 +52,10 @@ class SearchResults(APIView):
             for field in self.fields:
                 if request.query_params.get(field, None):
                     if (field in ["cost", "weight"]) and ("." in request.query_params.get(field, None)):
-                        cost = float(request.query_params.get(field, None))
-                        cost = int(cost) if int(cost)== cost else cost
-                        q_filter &= Q(**{f"{field}__endswith":cost})
-                        
+                        search_input = float(request.query_params.get(field, None))
+                        search_input = int(search_input) if int(search_input)== search_input else search_input
+                        q_filter &= Q(**{f"{field}__endswith":search_input})
+
                     else:              
                         q_filter &= Q(**{f"{field}__icontains":request.query_params.get(field, None)})
             
