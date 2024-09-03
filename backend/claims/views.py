@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Claim, Update, File
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer, FileSerializer
-
+from decimal import Decimal
 
 class ViewActive(APIView):
     serializer_class = ClaimSerializer
@@ -51,8 +51,13 @@ class SearchResults(APIView):
         else:
             for field in self.fields:
                 if request.query_params.get(field, None):
-                    print(request.query_params.get(field, None))
-                    q_filter &= Q(**{f"{field}__icontains":request.query_params.get(field, None)})
+                    if (field in ["cost", "weight"]) and ("." in request.query_params.get(field, None)):
+                        cost = float(request.query_params.get(field, None))
+                        cost = int(cost) if int(cost)== cost else cost
+                        q_filter &= Q(**{f"{field}__endswith":cost})
+                        
+                    else:              
+                        q_filter &= Q(**{f"{field}__icontains":request.query_params.get(field, None)})
             
             police_involved = request.query_params.get("police_involved", None)
             if police_involved == "true":
