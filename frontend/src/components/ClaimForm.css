@@ -67,5 +67,8 @@
     font-size: large;
 }
 
-
+.policeTitle {
+    font-size: larger;
+    text-decoration: underline;
+}
 

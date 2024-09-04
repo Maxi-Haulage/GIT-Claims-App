@@ -3,6 +3,7 @@ import axios from 'axios';
 import './ClaimForm.css';
 
 export default function ClaimForm({ errors, onSubmit, formFields, setFormFields }) {
+    const [policeOpen, setPoliceOpen] = useState(true);
 
     const [incidentTypes, setIncidentTypes] = useState({})
     const [depots, setDepots] = useState({});
@@ -22,12 +23,18 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                     "location": "Location",
                     "driver": "Driver",
                     "police_involved": "Police Involved?",
-                    "secondary": "Secondary Company"};
+                    "secondary": "Secondary Company",
+                    "reference_no": "Reference",
+                    "force": "Force",
+                    "officer": "Officer",
+                    "note": "Any Further Notes?"
+                };
 
     const references = ["company", "company_ref", "ajg_ref", "maxi_ref", "secondary"];
     const dates = ["incident_date", "claim_date"];
     const figures = ["weight", "cost"];
     const extras = ["location", "driver"];
+    const policeFields = ["reference_no", "force", "officer", "note"]
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API}/add-claim/`)
@@ -169,6 +176,26 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                 </div>
                 </div>
 
+                
+                {policeCheck() &&
+                <div>
+                    <br />
+                    <strong className='policeTitle'>Police Information</strong>
+                    {policeFields.map((field) =>
+                        <div key={field}>
+                            <strong>{aliases[field]}</strong><label> {errors[field]}</label>
+                            <input
+                            type='text'
+                            name={field}
+                            value={formFields[field]}
+                            onChange/>
+                        </div>
+                    )}
+                </div>
+                }
+                
+
+                <br />
                 <button type="submit" className='submitButton'><b>Submit</b></button>
 
                 
