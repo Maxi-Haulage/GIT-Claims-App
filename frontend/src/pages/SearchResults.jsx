@@ -8,6 +8,7 @@ import AdvancedSearch from '../components/AdvancedSearch';
 
 export default function SearchResults() {
     const [advancedOpen, setAdvancedOpen] = useState(false);
+    const [noResults, setNoResults] = useState(false);
     
     const [active, setActive] = useState([]);
     const [dormant, setDormant] = useState([])
@@ -16,6 +17,13 @@ export default function SearchResults() {
     let [searchParams, setSearchParams] = useSearchParams();
 
     function sortData(data) {
+        if (Object.keys(data).length === 0) {
+            setNoResults(true);
+            return;
+        }
+
+        setNoResults(false);
+
         let temp_active = [];
         let temp_dormant = [];
         let temp_closed = [];
@@ -45,7 +53,7 @@ export default function SearchResults() {
     }, [searchParams]);
 
     return (
-        <div>
+        <div className='page'>
             <div className='advancedSearch'> 
                 <h2>Advanced Search</h2> 
                 <button type='button' className='iconButton' onClick={() => setAdvancedOpen(!advancedOpen)}>
@@ -57,8 +65,9 @@ export default function SearchResults() {
                 </button>
             </div>
             {advancedOpen && <AdvancedSearch />}
-
-            <ClaimTable active={active} dormant={dormant} closed={closed} />
+            <br />
+            {!noResults ? <ClaimTable active={active} dormant={dormant} closed={closed} />
+            : <h1>No Results</h1>}
         </div>
     )
 }

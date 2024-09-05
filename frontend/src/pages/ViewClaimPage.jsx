@@ -51,7 +51,7 @@ export default function ViewClaimPage() {
     }
 
     return (
-        <div className='claimPage'>
+        <div className='page' id='claimPage'>
             <ClaimData />
             <br />
 
@@ -59,7 +59,7 @@ export default function ViewClaimPage() {
                 <div className='bottomLeft'>
                     <h2>Updates</h2>
                     <SubmitUpdate onSubmit={handleUpdateSubmit}/>
-                    <Updates newPost={newPost} />
+                    <Updates newPost={newPost} setNewPost={setNewPost} />
                 </div>
 
                 <div className='bottomRight'>

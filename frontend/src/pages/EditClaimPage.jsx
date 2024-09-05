@@ -57,8 +57,10 @@ export default function EditClaimPage() {
     }
 
     return (
-        <ClaimForm onSubmit={handleSubmit} errors={errors} 
-        formFields={formFields} setFormFields={setFormFields}
-        policeFields={policeFields} setPoliceFields={setPoliceFields} />
+        <div className='page'>
+            <ClaimForm onSubmit={handleSubmit} errors={errors} 
+            formFields={formFields} setFormFields={setFormFields}
+            policeFields={policeFields} setPoliceFields={setPoliceFields} />
+        </div>
     )
 }

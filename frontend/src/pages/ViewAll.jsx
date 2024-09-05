@@ -37,6 +37,8 @@ export default function ViewAll() {
 
 
     return (
-        <ClaimTable active={active} dormant={dormant} closed={closed} />
+        <div className='page'>
+            <ClaimTable active={active} dormant={dormant} closed={closed} />
+        </div>
     );
 }

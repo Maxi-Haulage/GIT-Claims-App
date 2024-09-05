@@ -1,11 +1,4 @@
-.tables {
-    margin: auto;
-    width: 60%;
-    margin-top: 2em;
-    /*background-color: #e3e3e3;*/
-}
-
-.tables h2 {
+#tables h2 {
     text-align: left;
     margin: 1em 0 10px 3%;
     display: inline;

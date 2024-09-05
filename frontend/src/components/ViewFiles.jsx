@@ -24,7 +24,6 @@ export default function ViewFiles({ newFile, setNewFile }) {
     }
 
     function deleteFile(file) {
-        console.log(file.id);
         axios.get(`${import.meta.env.VITE_API}/delete-file/${file.id}`)
         .then(response => {
             setNewFile(Math.random());
@@ -45,7 +44,7 @@ export default function ViewFiles({ newFile, setNewFile }) {
 
                     <div className='time'>
                         <Popup 
-                            trigger={<button><FaTrashAlt size={20}/></button>}
+                            trigger={<button className='iconButton'><FaTrashAlt size={20}/></button>}
                             position='right center'>
                             <button className='deleteButton' onClick={() => deleteFile(file)}>Confirm Delete</button>
                         </Popup>

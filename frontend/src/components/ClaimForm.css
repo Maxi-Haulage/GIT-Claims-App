@@ -1,9 +1,3 @@
-.addClaim {
-    display: flex;
-    width: 60%;
-    margin: auto;
-}
-
 .addClaim input[type=text] {
     width:100%;
 }

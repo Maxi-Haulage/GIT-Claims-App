@@ -1,19 +1,13 @@
-.claimPage {
-    width: 60%;
-    margin: auto;
-    margin-top: 1em;
-}
-
-.claimPage .bottom {
+#claimPage .bottom {
     overflow: auto;
     display: block;
 }
 
-.claimPage .bottomLeft {
+#claimPage .bottomLeft {
     float: left;
     width: 58%;
 }
 
-.claimPage .bottomRight {
+#claimPage .bottomRight {
     margin-left: 62%;
 }
