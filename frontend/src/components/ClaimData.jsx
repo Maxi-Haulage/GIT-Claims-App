@@ -33,32 +33,29 @@ export default function ClaimData() {
     
     return (
         <div className='claimData'>
+            <div className='top'>
             <div className='left'>
-
-                <span><strong>Company:</strong>         {blankCheck(claim.company)}</span><br />
-                <span><strong>Incident Date:</strong>   {blankCheck(claim.incident_date)}</span><br />
-                <span><strong>Claim Date:</strong>      {blankCheck(claim.claim_date)}</span><br />
-                <span><strong>Cost:</strong>            £{blankCheck(claim.cost)}</span><br />
-                <span><strong>Weight:</strong>          {blankCheck(claim.weight)}kg</span><br />
-                <span><strong>Incident Type:</strong>   {blankCheck(claim.incident_type)}</span><br />
-                <br />
-                <span><strong>Status:</strong>          {blankCheck(claim.status)}</span><br />
-
+                <span><strong>Company: </strong>{claim.company}</span><br />
+                {!blankCheck(claim.incident_date) && <span><strong>Incident Date: </strong>{claim.incident_date}<br /></span>}
+                {!blankCheck(claim.claim_date) && <span><strong>Claim Date: </strong>{claim.claim_date}<br /></span>}
+                <span><strong>Incident Type: </strong>{claim.incident_type}<br /></span>
+                {!blankCheck(claim.cost) && <span><strong>Cost: </strong>{claim.cost}<br /></span>}
+                {!blankCheck(claim.weight) && <span><strong>Weight: </strong>{claim.weight}<br /></span>}
+                <span><strong>Status: </strong>{claim.status}<br /></span>
             </div>
         
             <div className='right'>
-                <span><strong>AJG Reference:</strong>             {blankCheck(claim.ajg_ref)}</span><br />
-                <span><strong>Maxi Reference:</strong>            {blankCheck(claim.maxi_ref)}</span><br />
-                <span><strong>{claim.company} Reference:</strong> {blankCheck(claim.company_ref)}</span><br />
-                <span><strong>Secondary Company:</strong>         {blankCheck(claim.secondary)}</span><br/>
+                {!blankCheck(claim.ajg_ref) && <span><strong>AJG Reference: </strong>{claim.ajg_ref}<br /></span>}
+                {!blankCheck(claim.maxi_ref) && <span><strong>Maxi Reference: </strong>{claim.maxi_ref}<br /></span>}
+                {!blankCheck(claim.company_ref) && <span><strong>{claim.company} Reference: </strong>{claim.company_ref}<br /></span>}
+                {!blankCheck(claim.secondary) && <span><strong>Secondary Company: </strong>{claim.secondary}<br /></span>}
                 <br />
-                <br />
-                <span><strong>Location:</strong>                  {blankCheck(claim.location)}</span><br />
-                <span><strong>Depot:</strong>                     {blankCheck(claim.depot)}</span><br />
+                {!blankCheck(claim.location) && <span><strong>Location: </strong>{claim.location}<br /></span>}
+                {!blankCheck(claim.depot) && <span><strong>Depot: </strong>{claim.depot}<br /></span>}
+            </div>
             </div>
 
             <div>
-                <br />
                 <p>{claim.description}</p>
             </div>
 
@@ -67,16 +64,10 @@ export default function ClaimData() {
             <div className='bottom'>
                 <h3>Police Involvement</h3>
 
-            <div className='left'>
-                <span><strong>Reference:</strong>       {blankCheck(police.reference_no)}</span><br />
-                <span><strong>Force:</strong>           {blankCheck(police.force)}</span><br />
-                <span><strong>Officer:</strong>         {blankCheck(police.officer)}</span><br />
-            </div>
-            
-            <div className='right'>        
-                <span><strong>Note:</strong>            {blankCheck(police.note)}</span><br />
-            </div>
-            <br />
+                {!blankCheck(police.reference_no) && <span><strong>Reference: </strong>{police.reference_no}<br /></span>}
+                {!blankCheck(police.force) && <span><strong>Force: </strong>{police.force}<br /></span>}
+                {!blankCheck(police.officer) && <span><strong>Officer: </strong>{police.officer}<br /></span>}
+                {!blankCheck(police.note) && <span><strong>Notes: </strong>{police.note}<br /></span>}
             </div>}
             
         

@@ -13,6 +13,10 @@
     text-align: right;
 }
 
+.claimData .top {
+    display:block;
+}
+
 .claimData .bottom {
     display:block;
     background-color: #d2c6c6;
@@ -20,3 +24,4 @@
     padding: 0.7em;
     padding-top: 0;
 }
+

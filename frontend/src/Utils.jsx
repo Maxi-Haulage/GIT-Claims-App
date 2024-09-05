@@ -1,6 +1,6 @@
 export default function blankCheck(attr) {
     if (attr === null || attr === "") {
-        return "-";
+        return true;
     }
-    return attr;
+    return false;
 }
