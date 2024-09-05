@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser
 from django.db.models import Q
-from .models import Claim, Update, File
+from .models import Claim, Update, File, Police
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
-from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, UpdateSerializer, SubmitUpdateSerializer, FileSerializer
+from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer
+from .serializers import UpdateSerializer, SubmitUpdateSerializer, FileSerializer
+from .serializers import PoliceSerializer
 from decimal import Decimal
 
 class ViewActive(APIView):
@@ -238,3 +240,45 @@ class DeleteFile(APIView):
             return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)  
+
+
+
+
+class AddPolice(APIView):
+    def post(self, request, reference=None):
+        if reference:
+            get_object_or_404(Claim, id=int(reference))
+
+        data = request.data
+        data["claim"] = reference
+        serializer = PoliceSerializer(data=data)
+        
+        if serializer.is_valid():
+            police = serializer.save()
+            return Response(police.id, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class EditPolice(APIView):
+    serializer = PoliceSerializer
+
+    def get(self, request, reference=None):
+        try:
+            serializer = PoliceSerializer(Police.objects.filter(claim=int(reference))[0])
+            return Response(serializer.data)
+        except:
+            return Response(data=reference, status=404)
+
+    def post(self, request, reference=None):
+        if reference:
+            claim = get_object_or_404(Claim, id=int(reference))
+            police, created = Police.objects.get_or_create(claim=claim)
+            serializer = PoliceSerializer(police, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Success", status=status.HTTP_202_ACCEPTED)
+        
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -20,4 +20,7 @@ urlpatterns = [
     path("submit-files/<str:reference>/", views.SubmitFiles.as_view()),  
     path("claim-files/<str:reference>/", views.ClaimFiles.as_view()),
     path("delete-file/<str:file_id>/", views.DeleteFile.as_view()),
+
+    path("add-police/<str:reference>/", views.AddPolice.as_view()),
+    path("edit-police/<str:reference>/", views.EditPolice.as_view()),
 ]

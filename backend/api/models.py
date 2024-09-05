@@ -144,9 +144,9 @@ class Police(models.Model):
     
     claim = models.OneToOneField(Claim, on_delete=models.CASCADE)
 
-    force = models.CharField(max_length=100)
-    officer = models.CharField(max_length=100)
-    reference_no = models.CharField(max_length=50)
+    force = models.CharField(max_length=100, blank=True)
+    officer = models.CharField(max_length=100, blank=True)
+    reference_no = models.CharField(max_length=50, blank=True)
     note = models.CharField(max_length=200, blank=True)
 
 

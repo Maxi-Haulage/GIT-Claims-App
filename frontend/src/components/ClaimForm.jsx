@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ClaimForm.css';
 
-export default function ClaimForm({ errors, onSubmit, formFields, setFormFields }) {
+export default function ClaimForm({ errors, onSubmit, formFields, setFormFields, policeFields, setPoliceFields }) {
     const [policeOpen, setPoliceOpen] = useState(true);
 
     const [incidentTypes, setIncidentTypes] = useState({})
@@ -34,7 +34,7 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
     const dates = ["incident_date", "claim_date"];
     const figures = ["weight", "cost"];
     const extras = ["location", "driver"];
-    const policeFields = ["reference_no", "force", "officer", "note"]
+    const police = ["reference_no", "force", "officer", "note"]
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API}/add-claim/`)
@@ -181,14 +181,14 @@ export default function ClaimForm({ errors, onSubmit, formFields, setFormFields 
                 <div>
                     <br />
                     <strong className='policeTitle'>Police Information</strong>
-                    {policeFields.map((field) =>
+                    {police.map((field) =>
                         <div key={field}>
                             <strong>{aliases[field]}</strong><label> {errors[field]}</label>
                             <input
                             type='text'
                             name={field}
-                            value={formFields[field]}
-                            onChange/>
+                            value={policeFields[field]}
+                            onChange={(e) => setPoliceFields({...policeFields, [field]: e.target.value})}/>
                         </div>
                     )}
                 </div>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Claim, Update, File
+from .models import Claim, Update, File, Police
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from datetime import datetime, date
 
@@ -69,10 +69,6 @@ class EditClaimSerializer(serializers.ModelSerializer):
             if ret[field] == None:
                 ret[field] = ""
 
-        """ret['incident_type'] = INCIDENT_TYPES[ret["incident_type"]] if ret["incident_type"] != "" else ""
-        ret['depot'] = DEPOTS[ret["depot"]] if ret["depot"] != "" else ""
-        ret['status'] = STATUSES[ret["status"]] if ret["status"] != "" else """""
-        
         return ret
     
     def to_internal_value(self, data):
@@ -127,3 +123,9 @@ class FileSerializer(serializers.ModelSerializer):
         ret['time'] = ret['time'][:5]
 
         return ret
+    
+
+class PoliceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Police
+        fields = ["reference_no", "force", "officer", "note"]

@@ -7,31 +7,20 @@ export default function AdvancedSearch() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [errors, setErrors] = useState({});
-    const [formFields, setFormFields] = useState({"company": "",
-                                                "company_ref": "",
-                                                "ajg_ref": "",
-                                                "maxi_ref": "",
-                                                "incident_date": "",
-                                                "claim_date": "",
-                                                "incident_type": "",
-                                                "depot": "",
-                                                "status": "",
-                                                "weight": "",
-                                                "cost": "",
-                                                "description": "",
-                                                "location": "",
-                                                "driver": "",
-                                                "police": ""});
+    const [formFields, setFormFields] = useState({});
+    const [policeFields, setPoliceFields] = useState({});
 
     function makeSearch(e) {
-        setSearchParams(formFields);
+        setSearchParams(...formFields, ...policeFields);
         console.log(e.target);
         e.preventDefault(); 
     }
 
     return (
         <div>
-            <ClaimForm onSubmit={makeSearch} errors={errors} formFields={formFields} setFormFields={setFormFields} />
+            <ClaimForm onSubmit={makeSearch} errors={errors} 
+            formFields={formFields} setFormFields={setFormFields}
+            policeFields={policeFields} setPoliceFields={setPoliceFields} />
         </div>
     )
 }

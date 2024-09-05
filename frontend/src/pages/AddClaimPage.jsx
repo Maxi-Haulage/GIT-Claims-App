@@ -9,6 +9,7 @@ export default function AddClaimPage() {
 
     const [errors, setErrors] = useState({});
     const [formFields, setFormFields] = useState({});
+    const [policeFields, setPoliceFields] = useState({});
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -16,6 +17,14 @@ export default function AddClaimPage() {
         axios.post(`${import.meta.env.VITE_API}/add-claim/`, 
         formFields)
         .then(response => {
+            if (formFields["police_involved"]) {
+                axios.post(`${import.meta.env.VITE_API}/edit-police/${response.data}/`, 
+                policeFields)
+                .then(response => {})
+                .catch(error => {
+                    setErrors(error.response.data);
+                });
+            }
             navigate(`/view-claim/${response.data}`);
         })
         .catch(error => {
@@ -24,6 +33,8 @@ export default function AddClaimPage() {
     }
 
     return (
-        <ClaimForm onSubmit={handleSubmit} errors={errors} formFields={formFields} setFormFields={setFormFields}/>
+        <ClaimForm onSubmit={handleSubmit} errors={errors} 
+        formFields={formFields} setFormFields={setFormFields} 
+        policeFields={policeFields} setPoliceFields={setPoliceFields} />
     )
 }
