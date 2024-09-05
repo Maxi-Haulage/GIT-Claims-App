@@ -58,7 +58,6 @@ export default function ClaimData() {
             <div>
                 <p>{claim.description}</p>
             </div>
-
             
             {claim.police_involved &&
             <div className='bottom'>
@@ -69,7 +68,6 @@ export default function ClaimData() {
                 {!blankCheck(police.officer) && <span><strong>Officer: </strong>{police.officer}<br /></span>}
                 {!blankCheck(police.note) && <span><strong>Notes: </strong>{police.note}<br /></span>}
             </div>}
-            
         
         </div>
     )

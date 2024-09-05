@@ -41,9 +41,12 @@ class SearchResults(APIView):
                   "weight", "incident_type", "company", "secondary", 
                   "ajg_ref", "maxi_ref", "company_ref", "description", 
                   "driver", "location", "depot", "id"]
+    
+    police_fields = ["reference_no", "force", "officer", "note"]
 
     def get(self, request):
         q_filter = Q()
+        q_police_filter = Q()
         
         search = request.query_params.get('search', None)
         if search:
@@ -64,8 +67,20 @@ class SearchResults(APIView):
             police_involved = request.query_params.get("police_involved", None)
             if police_involved == "true":
                 q_filter &= Q(police_involved=True)
+
+            for field in self.police_fields:
+                if request.query_params.get(field, None):
+                    q_police_filter &= Q(**{f"{field}__icontains":request.query_params.get(field, None)})
+        
         
         queryset = Claim.objects.filter(q_filter)
+        
+        if q_police_filter != Q():
+            police_qs = Police.objects.filter(q_police_filter)
+            queryset = queryset.filter(police__in=police_qs)
+
+        print(queryset)
+
         serializer = ClaimSerializer(queryset, many=True)
         return Response(serializer.data)
     

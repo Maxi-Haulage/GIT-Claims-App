@@ -11,7 +11,7 @@ export default function AdvancedSearch() {
     const [policeFields, setPoliceFields] = useState({});
 
     function makeSearch(e) {
-        setSearchParams(...formFields, ...policeFields);
+        setSearchParams({...formFields, ...policeFields});
         console.log(e.target);
         e.preventDefault(); 
     }
