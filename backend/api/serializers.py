@@ -106,7 +106,7 @@ class SubmitUpdateSerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ["file", "name", "date", "time", "id"]
+        fields = ["location", "onedrive_id", "name", "date", "time", "id"]
 
     def to_internal_value(self, data):
         data["name"] = data["file"].name

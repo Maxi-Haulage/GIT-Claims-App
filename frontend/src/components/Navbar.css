@@ -12,7 +12,12 @@ img {
 nav {
     margin: auto;  
     margin-left: 5%;
-    width: 60%;    
+    width: 60%;  
+    display: flex;
+}
+
+#claimOptions {
+    float: right;
 }
 
 nav a {
@@ -48,3 +53,5 @@ nav .edit >[href="/view-claim"] {
     width: 40%;
 }
 
+.closePopup {
+}

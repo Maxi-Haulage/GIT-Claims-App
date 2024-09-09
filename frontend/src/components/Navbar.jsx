@@ -20,13 +20,6 @@ export default function Navbar() {
         return false;
     };
 
-    function searchPageCheck() {
-        if ((location.pathname).includes("/results")) {
-            return true;
-        }
-        return false;
-    };
-
     function deleteClaim(id) {
         axios.get(`${import.meta.env.VITE_API}/delete-claim/${id}`)
         .then(response => {
@@ -37,6 +30,9 @@ export default function Navbar() {
         });
     }
 
+    function closeClaim(id) {
+    }
+
 
 
     return (
@@ -44,13 +40,26 @@ export default function Navbar() {
             <a href='/'><img src='/logo.png' alt="Logo"></img></a>
             <nav>
                 <a href='/add-claim'>Add Claim</a>
-                {viewPageCheck() && <a href={editLink} className='edit'>Edit Claim</a>}
                 {viewPageCheck() && 
+                <div id='claimOptions'>
+                    <a href={editLink} className='edit'>Edit Claim</a>
                     <Popup 
                         trigger={<button className='navbarButton'>Delete Claim</button>}
                         position='bottom center'>
                         <button className='deleteButton' onClick={() => deleteClaim(id)}>Confirm Delete</button>
-                    </Popup>}
+                    </Popup>
+                    <Popup 
+                        trigger={<button className='navbarButton'>Close Claim</button>}
+                        position='bottom center'
+                        className='closePopup'>
+                        <>
+                            hi
+                            <button onClick={() => closeClaim(id)}>Confirm Close</button>
+                        </>
+                    </Popup>
+                </div>}
+
+                
             </nav>
 
             <div className='search'>

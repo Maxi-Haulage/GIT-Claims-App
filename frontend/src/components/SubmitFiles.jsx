@@ -1,7 +1,7 @@
 import React from 'react';
 import './SubmitFiles.css';
 
-export default function SubmitFiles({ onSubmit, setFiles }) {
+export default function SubmitFiles({ onSubmit, setFiles, fileErrors }) {
 
     return (
         <div className='submitFiles'>
@@ -11,6 +11,7 @@ export default function SubmitFiles({ onSubmit, setFiles }) {
 
                 <button type="submit" className='submitButton'><strong>Submit</strong></button>
             </form>
+            <label>{fileErrors}</label>
         </div>
     )
 }

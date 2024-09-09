@@ -19,10 +19,6 @@ export default function ViewFiles({ newFile, setNewFile }) {
         });
     }, [id, newFile]);
 
-    function fileLink (file) {
-        return `http://localhost:8000${file.file}`
-    }
-
     function deleteFile(file) {
         axios.get(`${import.meta.env.VITE_API}/delete-file/${file.id}`)
         .then(response => {
@@ -39,7 +35,7 @@ export default function ViewFiles({ newFile, setNewFile }) {
             {files.map((file) => (
                 <div key={file.id} className='files'>
                     <div className='file'>
-                        <a href={fileLink(file)}>{file.name}</a>
+                        <a href={file.location}>{file.name}</a>
                     </div>
 
                     <div className='time'>

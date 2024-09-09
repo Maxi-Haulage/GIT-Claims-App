@@ -6,6 +6,7 @@ from rest_framework.parsers import MultiPartParser
 from django.db.models import Q
 from .models import Claim, Update, File, Police
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
+from .graphAPI import connect, send_file, delete_file
 from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer
 from .serializers import UpdateSerializer, SubmitUpdateSerializer, FileSerializer
 from .serializers import PoliceSerializer
@@ -78,8 +79,6 @@ class SearchResults(APIView):
         if q_police_filter != Q():
             police_qs = Police.objects.filter(q_police_filter)
             queryset = queryset.filter(police__in=police_qs)
-
-        print(queryset)
 
         serializer = ClaimSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -220,7 +219,18 @@ class SubmitFiles(APIView):
         if reference:
             claim = get_object_or_404(Claim, id=int(reference))
 
-        serializer = FileSerializer(data=request.data)
+        f = request.FILES["file"]
+
+        if f.size > 250000000:
+            return Response("File size too large > 250MB", status=status.HTTP_400_BAD_REQUEST)
+
+        onedrive_id, location = send_file(f.name, f.read(), reference, connect())
+
+        data = request.data
+        data["location"] = location
+        data["onedrive_id"] = onedrive_id
+
+        serializer = FileSerializer(data=data)
 
         if serializer.is_valid():
             serializer.validated_data["claim"] = claim
@@ -250,6 +260,9 @@ class DeleteFile(APIView):
         try:
             if file_id:
                 file = get_object_or_404(File, id=int(file_id))
+
+            delete_file(file.onedrive_id, connect())
+            print("DID IT")
 
             file.delete()
             return Response(status=status.HTTP_200_OK)

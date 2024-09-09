@@ -9,7 +9,7 @@
     margin-top: 2em;
 }
 
-textarea, input[type=text], input[type=date], input[type=number] {
+textarea, input[type=text], input[type=date], input[type=number], button {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

@@ -22,7 +22,7 @@ export default function ViewAll({ active, dormant, closed }) {
     }
 
     return (
-        <div className='tables' id='tables'>
+        <div id='tables'>
             {Object.keys(stats).map((stat) => (
             <div key={stat}>
                 <h2>{stat}</h2> 

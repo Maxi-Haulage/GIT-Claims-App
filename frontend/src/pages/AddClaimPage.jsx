@@ -28,6 +28,7 @@ export default function AddClaimPage() {
             navigate(`/view-claim/${response.data}`);
         })
         .catch(error => {
+            console.log(error);
             setErrors(error.response.data);
         });
     }

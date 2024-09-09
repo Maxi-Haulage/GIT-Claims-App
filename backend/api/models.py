@@ -2,9 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date, datetime
 
-def upload_path(instance, filename):
-    return f"media/{instance.claim.id}/{filename}"
-
 INCIDENT_TYPES = {
     "WETDA" : "Wet",
     "DAMAG" : "Damaged",
@@ -153,7 +150,8 @@ class Police(models.Model):
 class File(models.Model):
     claim = models.ForeignKey(Claim, on_delete=models.CASCADE)
 
-    file = models.FileField(upload_to=upload_path, null=True, blank=True)
+    location = models.URLField(max_length=200)
+    onedrive_id = models.CharField(max_length=200)
     name = models.CharField(max_length=100)
     date = models.DateField(null=True)
     time = models.TimeField(null=True)
@@ -168,12 +166,5 @@ class File(models.Model):
             claim = self.claim
             claim.last_updated = today
             claim.save()
-            
-            self.name = self.file.name
 
         super().save(**kwargs)
-
-    def delete(self, **kwargs):
-        # Deletes stored file THEN deletes object 
-        self.file.delete()
-        super().delete(**kwargs)

@@ -14,6 +14,7 @@ export default function ViewClaimPage() {
     let { id } = useParams(); 
 
     const [files, setFiles] = useState("");
+    const [fileErrors, setFileErrors] = useState("");
 
     function handleUpdateSubmit(e) {
         e.preventDefault();
@@ -34,8 +35,12 @@ export default function ViewClaimPage() {
 
         const form = new FormData();
         for (let i=0; i<files.length; i++) {
+            if (files[i].size > 250000000) {
+                setFileErrors("File is too big >250MB");
+                return;
+            }
             form.append("file", files[i]);
-        }    
+        }
         
         var frm = document.getElementById("fileSubmission");
         frm.reset();
@@ -43,10 +48,11 @@ export default function ViewClaimPage() {
         axios.post(`${import.meta.env.VITE_API}/submit-files/${id}/`,
         form)
         .then(response => {
+            setFileErrors();
             setNewFile(Math.random());
         })
         .catch(error => {
-            console.log(error);
+            setFileErrors(error);
         });
     }
 
@@ -64,7 +70,7 @@ export default function ViewClaimPage() {
 
                 <div className='bottomRight'>
                     <h2>Files</h2>
-                    <SubmitFiles onSubmit={handleFileSubmit} setFiles={setFiles} />
+                    <SubmitFiles onSubmit={handleFileSubmit} setFiles={setFiles} fileErrors={fileErrors} />
                     <ViewFiles newFile={newFile} setNewFile={setNewFile}/>
                 </div>
             </div>
