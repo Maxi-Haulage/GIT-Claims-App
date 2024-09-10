@@ -54,11 +54,33 @@ def delete_file(item_id, access_token):
         'Authorization': f'Bearer {access_token}',
         'Content-Type': 'application/json',
     }
-    print("OK")
 
     response = requests.delete(
         url=GRAPH_API + f'{LOCATION}/drive/items/{item_id}',
         headers=headers,
     )
+
+    return response
+
+def delete_claim_folder(child_id, access_token):
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json',
+    }
+
+    response = requests.get(
+        url=GRAPH_API + f'{LOCATION}/drive/items/{child_id}',
+        headers=headers,
+    )
+
+    response = response.json()
+    folder_id = response["parentReference"]["id"]
+
+    response = requests.delete(
+        url=GRAPH_API + f'{LOCATION}/drive/items/{folder_id}',
+        headers=headers,
+    )
+
+    print(response)
 
     return response

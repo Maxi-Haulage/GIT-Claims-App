@@ -48,10 +48,12 @@ export default function ViewClaimPage() {
         axios.post(`${import.meta.env.VITE_API}/submit-files/${id}/`,
         form)
         .then(response => {
+            console.log(response);
             setFileErrors();
             setNewFile(Math.random());
         })
         .catch(error => {
+            console.log(error);
             setFileErrors(error);
         });
     }

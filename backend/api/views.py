@@ -6,7 +6,7 @@ from rest_framework.parsers import MultiPartParser
 from django.db.models import Q
 from .models import Claim, Update, File, Police
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
-from .graphAPI import connect, send_file, delete_file
+from .graphAPI import connect, send_file, delete_file, delete_claim_folder
 from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer
 from .serializers import UpdateSerializer, SubmitUpdateSerializer, FileSerializer
 from .serializers import PoliceSerializer
@@ -203,6 +203,10 @@ class DeleteClaim(APIView):
             if reference:
                 claim = get_object_or_404(Claim, id=int(reference))
 
+            files = File.objects.filter(claim=claim)
+            if files:
+                delete_claim_folder(files[0].onedrive_id, connect())
+            
             claim.delete()
             return Response(status=status.HTTP_200_OK) 
         except:
@@ -262,7 +266,6 @@ class DeleteFile(APIView):
                 file = get_object_or_404(File, id=int(file_id))
 
             delete_file(file.onedrive_id, connect())
-            print("DID IT")
 
             file.delete()
             return Response(status=status.HTTP_200_OK)
