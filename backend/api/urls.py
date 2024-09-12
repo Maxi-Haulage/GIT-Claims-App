@@ -16,6 +16,7 @@ urlpatterns = [
     path("add-claim/", views.AddClaim.as_view()),
     path("edit-claim/<str:reference>/", views.EditClaim.as_view()),
     path("delete-claim/<str:reference>/", views.DeleteClaim.as_view()),
+    path("close-claim/<str:reference>/", views.CloseClaim.as_view()),
 
     path("submit-files/<str:reference>/", views.SubmitFiles.as_view()),  
     path("claim-files/<str:reference>/", views.ClaimFiles.as_view()),

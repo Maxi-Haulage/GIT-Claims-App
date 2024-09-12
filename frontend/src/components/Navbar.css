@@ -43,6 +43,7 @@ nav .edit >[href="/view-claim"] {
     margin: 1vb;
     background: none;
     border: none;
+    border-radius: 30px;
     cursor: pointer;
 }
 
@@ -53,5 +54,6 @@ nav .edit >[href="/view-claim"] {
     width: 40%;
 }
 
-.closePopup {
+nav .deleteButton {
+    font-size: large;
 }

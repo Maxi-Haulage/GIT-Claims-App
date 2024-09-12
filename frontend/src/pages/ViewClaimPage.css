@@ -11,3 +11,22 @@
 #claimPage .bottomRight {
     margin-left: 62%;
 }
+
+.note, .file {
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: large;
+}
+
+.time {
+    color: #00000099;
+
+    float: right;
+    width:100%;
+    text-align: right;
+}
+
+.time span {
+    float: left;
+}

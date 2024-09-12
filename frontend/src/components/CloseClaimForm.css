@@ -1,0 +1,37 @@
+#yes {
+    background-color: rgb(108, 200, 108);
+}
+
+#no {
+    background-color: rgb(229, 65, 65);
+    color: white;
+}
+
+
+.optionButton {
+    font-size: large;
+    padding: 0.2em 0.4em;
+    border-radius: 5px;
+}
+
+.optionButtons {
+    padding-top: 0.4em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+}
+
+#noteInput {
+    width: 100%;
+    max-height: 14vh;
+    resize: vertical;
+    font-size: large;
+}
+
+#closeSubmit {
+    font-size: large;
+}
+

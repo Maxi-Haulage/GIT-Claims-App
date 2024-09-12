@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 import SearchBar from './SearchBar';
+import LargePopup from './LargePopup';
+import CloseClaimForm from './CloseClaimForm';
 
 export default function Navbar() {
     let location = useLocation();
     let { id } = useParams();
     const navigate = useNavigate();
 
-    let editLink = `/edit-claim/${id}`
+    const [deletePopup, setDeletePopup] = useState(false);
+    const [closePopup, setClosePopup] = useState(false);
     
+    let editLink = `/edit-claim/${id}`
 
     function viewPageCheck() {
         if ((location.pathname).includes("view-claim/")) {
@@ -43,22 +47,21 @@ export default function Navbar() {
                 {viewPageCheck() && 
                 <div id='claimOptions'>
                     <a href={editLink} className='edit'>Edit Claim</a>
-                    <Popup 
-                        trigger={<button className='navbarButton'>Delete Claim</button>}
-                        position='bottom center'>
-                        <button className='deleteButton' onClick={() => deleteClaim(id)}>Confirm Delete</button>
-                    </Popup>
-                    <Popup 
-                        trigger={<button className='navbarButton'>Close Claim</button>}
-                        position='bottom center'
-                        className='closePopup'>
-                        <>
-                            hi
-                            <button onClick={() => closeClaim(id)}>Confirm Close</button>
-                        </>
-                    </Popup>
-                </div>}
+                    
+                    <button className='navbarButton' onClick={() => setClosePopup(true)}>Close Claim</button>
+                    <LargePopup trigger={closePopup} setTrigger={setClosePopup}>
+                        <CloseClaimForm id={id} />
+                    </LargePopup>
 
+                    <button className='navbarButton' onClick={() => setDeletePopup(true)}>Delete Claim</button>
+                    <LargePopup trigger={deletePopup} setTrigger={setDeletePopup}>
+                        <div className='centred'>
+                            <p>Are you sure you want to delete this claim?</p>
+                            <button className='deleteButton' onClick={() => deleteClaim(id)}>Confirm Delete</button>
+                        </div>
+                    </LargePopup>
+
+                </div>}
                 
             </nav>
 

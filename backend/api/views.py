@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Claim, Update, File, Police
 from .models import INCIDENT_TYPES, DEPOTS, STATUSES
 from .graphAPI import connect, send_file, delete_file, delete_claim_folder
-from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer
+from .serializers import AddClaimSerializer, EditClaimSerializer, ClaimSerializer, CloseClaimSerializer
 from .serializers import UpdateSerializer, SubmitUpdateSerializer, FileSerializer
 from .serializers import PoliceSerializer
 from decimal import Decimal
@@ -194,6 +194,24 @@ class EditClaim(APIView):
                 if serializer.errors["incident_type"][0] == '"" is not a valid choice.':
                     serializer.errors["incident_type"][0] = "This field may not be blank"
 
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class CloseClaim(APIView):
+    serializer = CloseClaimSerializer
+
+    def post(self, request, reference=None):
+        if reference:
+            claim = get_object_or_404(Claim, id=int(reference))
+
+        print(request.data)
+        serializer = self.serializer(claim, data=request.data)
+
+        if serializer.is_valid():
+            serializer.validated_data["status"] = "CLOSE"
+            serializer.save()
+            return Response("Success", status=status.HTTP_202_ACCEPTED)
+        else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

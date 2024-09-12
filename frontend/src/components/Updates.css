@@ -1,20 +1,17 @@
 .updates {
-    display: flex;
-    font-size: 1.3em;
-    line-height: 1.3em;
-    padding: 2%;
+    display: grid;
+    padding: 0.5em 0.7em;
     background-color: #d1b9b9;
     margin-bottom: 0.3em;
     border-radius: 10px 10px 10px 10px;
+    overflow-wrap: break-word;
 }   
 
-.note {
-    width: 80%;
-    padding-right: 1%;
-}
-
-.time {
-    width: 20%;
+.updates .time {
+    float: right;
     text-align: right;
 }
 
+.updates .time span {
+    float: left;
+}

@@ -76,7 +76,6 @@ class Claim(models.Model):
     maxi_ref = models.CharField(max_length=50, blank=True)
     company_ref = models.CharField(max_length=50, blank=True)
     
-    
     description = models.CharField(max_length=500)
 
     # Extra information
@@ -84,6 +83,10 @@ class Claim(models.Model):
     location = models.CharField(blank=True, max_length=100)
     depot = models.CharField(blank=True, choices=DEPOTS, max_length=5)
     police_involved = models.BooleanField(default=False)
+
+    # Closed Information
+    claim_paid = models.BooleanField(default=False)
+    closing_info = models.CharField(max_length=300, blank=True)
 
     def save(self, **kwargs):
         """if self.status == "DORMA" and self.last_updated:
@@ -96,7 +99,7 @@ class Claim(models.Model):
             self.last_updated = date.today()    
 
         super().save(**kwargs)
-    
+
 
 class Update(models.Model):
     """Class to represent an update given to a claim.

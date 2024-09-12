@@ -1,5 +1,5 @@
 .claimData {
-    font-size: 1.5em;
+    font-size: larger;
     line-height: 1.8em;
 }
 
@@ -17,11 +17,14 @@
     display:block;
 }
 
-.claimData .bottom {
+.highlighted {
     display:block;
     background-color: #d2c6c6;
     border-radius: 10px;
     padding: 0.7em;
-    padding-top: 0;
+}
+
+h2, h3 {
+    margin-top: 0;
 }
 

@@ -6,9 +6,8 @@ from datetime import datetime, date
 class ClaimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Claim
-        #fields = ["id", "incident_date", "claim_date", "last_updated", "status", "cost", "weight", "incident_type", "company", "secondary", "ajg_ref", "maxi_ref", "company_ref", "description", "driver", "location", "depot", "police_involved"]
         exclude = ()
-        #extra_kwargs = {"id": {"read_only": True}}
+        #fields = ["id", "incident_date", "claim_date", "last_updated", "status", "cost", "weight", "incident_type", "company", "secondary", "ajg_ref", "maxi_ref", "company_ref", "description", "driver", "location", "depot", "police_involved"]
 
     def to_representation(self, instance):
         """Convert actual values of incident type, depot, and status to the human readable version."""
@@ -81,6 +80,12 @@ class EditClaimSerializer(serializers.ModelSerializer):
         validated_data = super().to_internal_value(data)
 
         return validated_data
+    
+
+class CloseClaimSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Claim
+        fields = ["claim_paid", "closing_info"]
 
 
 class UpdateSerializer(serializers.ModelSerializer):

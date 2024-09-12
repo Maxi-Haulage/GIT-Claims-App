@@ -1,0 +1,29 @@
+.popup {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    width: 30vw;
+    height: 15vw;
+    background-color: #e49a9a;
+    border: 3px solid #9e5858;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupContents {
+    padding: 2em;
+}
+
+.closeButton {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+}

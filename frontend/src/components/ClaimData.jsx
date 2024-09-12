@@ -33,7 +33,21 @@ export default function ClaimData() {
     
     return (
         <div className='claimData'>
+            
             <div className='top'>
+
+
+            {(claim.status == "Closed") && <>
+            <div className='highlighted'>
+                <h2>Claim Closed</h2>
+                <strong>Was Claim Paid? </strong>{claim.claim_paid ? " Yes" : " No"}
+                {!blankCheck(claim.closing_info) && <span><br />{claim.closing_info}<br /></span>}
+            </div>
+            <br /></>
+            }
+
+
+
             <div className='left'>
                 <span><strong>Company: </strong>{claim.company}</span><br />
                 {!blankCheck(claim.incident_date) && <span><strong>Incident Date: </strong>{claim.incident_date}<br /></span>}
@@ -60,7 +74,7 @@ export default function ClaimData() {
             </div>
             
             {claim.police_involved &&
-            <div className='bottom'>
+            <div className='highlighted'>
                 <h3>Police Involvement</h3>
 
                 {!blankCheck(police.reference_no) && <span><strong>Reference: </strong>{police.reference_no}<br /></span>}

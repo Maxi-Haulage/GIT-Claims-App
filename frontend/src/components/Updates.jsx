@@ -9,6 +9,7 @@ import { FaTrashAlt } from 'react-icons/fa';
  * Component that displays all updates for a specific claim in order with most recent at the top. 
  * 
  * @param {number} newPost - Prop that forces rerender when the current user makes a new post.
+ * @param {function} setNewPost - Updates newPost when a post is deleted.
  */
 export default function Updates({ newPost, setNewPost }) {
     const [updates, setUpdates] = useState([]);
@@ -43,14 +44,14 @@ export default function Updates({ newPost, setNewPost }) {
                     </div>
                     
                     <div className='time'>
-                        {update.time} {update.date}
+                        <br />
+                        <Popup 
+                            trigger={<button className='iconButton'><FaTrashAlt size={15}/></button>}
+                            position='right center'>
+                            <button className='deleteButton' onClick={() => deleteUpdate(update)}>Confirm Delete</button>
+                        </Popup>
+                        <span>{update.time} {update.date}</span>
                     </div>
-
-                    <Popup 
-                        trigger={<button className='iconButton'><FaTrashAlt size={20}/></button>}
-                        position='right center'>
-                        <button className='deleteButton' onClick={() => deleteUpdate(update)}>Confirm Delete</button>
-                    </Popup>
                 </div>
             ))}
         </div>

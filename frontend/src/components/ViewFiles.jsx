@@ -39,8 +39,9 @@ export default function ViewFiles({ newFile, setNewFile }) {
                     </div>
 
                     <div className='time'>
+                        <br />
                         <Popup 
-                            trigger={<button className='iconButton'><FaTrashAlt size={20}/></button>}
+                            trigger={<button className='iconButton'><FaTrashAlt size={15}/></button>}
                             position='right center'>
                             <button className='deleteButton' onClick={() => deleteFile(file)}>Confirm Delete</button>
                         </Popup>
